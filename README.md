@@ -1,2 +1,2 @@
 # wzsat
-Webzen Spark Analysis Tool
+Webzen Spark Lab
