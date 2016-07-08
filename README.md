@@ -1,2 +1,3 @@
-# wzsat
+# wslab
+
 Webzen Spark Lab
