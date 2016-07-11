@@ -2,3 +2,4 @@
 .*.swp
 *.template
 *env
+cluster_id.txt
