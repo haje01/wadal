@@ -6,9 +6,9 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
 ##Configure s3fs
 sudo su -l hadoop bash -c "echo -e $1:$2 > ~/.passwd-s3fs"
-sudo chmod 600 /etc/passwd-s3fs
+sudo chmod 600 ~/.passwd-s3fs
 sudo su -l hadoop -c "mkdir ~/notebooks"
-sudo /usr/local/bin/s3fs wzdat-notebooks /home/hadoop/notebooks -o passwd_file=/etc/passwd-s3fs
+sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/notebooks"
 
 ##Configure Jupyter
 sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
