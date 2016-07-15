@@ -1,1 +1,8 @@
-open -a /Applications/Firefox.app http://$(aws emr describe-cluster --cluster-id `cat cluster_id.txt` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",' | awk '{print$1"/ganglia"}')
+if [[ $# -lt 1 ]] ; then
+    echo 'enter profile'
+    exit 0
+fi
+
+source profiles/$1
+
+open -a /Applications/Firefox.app http://$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",' | awk '{print$1"/ganglia"}')
