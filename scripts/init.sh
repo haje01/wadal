@@ -5,6 +5,7 @@ curl https://bootstrap.pypa.io/get-pip.py | sudo python3.4
 sudo /usr/local/bin/pip3 install jupyter
 sudo /usr/local/bin/pip3 install numpy
 sudo /usr/local/bin/pip3 install matplotlib
+# sudo /usr/local/bin/pip3 install pandas
 sudo /usr/local/bin/pip3 install runipy
 
 # for s3fs
