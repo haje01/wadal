@@ -1,4 +1,4 @@
-# wadal
+# Wadal
 
 Webzen Advanced Data Analysis Lab
 
@@ -13,9 +13,11 @@ Webzen Advanced Data Analysis Lab
 
 ### 설정 파일 만들기
 
-1. `env.template`을 개발 환경에 맞는 이름으로 복사해 설정파일 생성
+1. `env.template`을 복사해 용도에 맞는 이름으로 `profiles/`아래에 넣음
 
-  예) `dev-env`
+    cp env.template profiles/myenv
+
+앞으로 이 파일 `myenv`을 *프로파일 명* 으로 한다.
 
 2. 에디터로 설정 파일을 편집
 
@@ -38,24 +40,27 @@ Webzen Advanced Data Analysis Lab
 
 ### EMR 클러스터 관리
 
+위에서 만든 프로파일 명을 끝에 넣어주고, 아래와 같은 다양한 명령을 수행한다.
+
 #### 클러스터 생성
 
-    bin/create-cluster.sh
+    bin/create-cluster myenv
 
 #### 클러스터 상태 확인
 
-    bin/state.sh
+    bin/state myenv
 
-#### 분석 노트북 열기
+#### Jupyter 노트북 열기
 
-    bin/open_notebooks.sh
+    bin/notebooks myenv
 
 #### 하둡 마스터 노드에 로그인
 
-    bin/ssh.sh
+    bin/ssh myenv
 
 ### EMR 클러스터 제거
-    bin/terminate.sh
+
+    bin/terminate myenv
 
 
 ## 주의할 것

@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-#Environments
+# Environments
 SPARK_PACKAGES=com.databricks:spark-csv_2.11:1.4.0
 JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
-##Configure s3fs
+# Configure s3fs
 sudo su -l hadoop bash -c "echo -e $1:$2 > ~/.passwd-s3fs"
 sudo chmod 600 ~/.passwd-s3fs
 sudo su -l hadoop -c "mkdir ~/notebooks"
 sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/notebooks"
 
-##Configure Jupyter
+# Configure Jupyter
 sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
 
 JUPYTER_NOTEBOOK_CONFIG=/home/hadoop/.jupyter/jupyter_notebook_config.py
@@ -25,7 +25,7 @@ sudo su -l hadoop -c "ipython profile create"
 sudo sed -i -e '3a c.InteractiveShellApp.matplotlib = "inline"' $IPYTHON_KERNEL_CONFIG
 
 
-##Launch Jupyter by executing "pyspark"
+# Launch Jupyter by executing "pyspark"
 JUPYTER_PYSPARK_BIN=/home/hadoop/.jupyter/start-jupyter-pyspark.sh
 
 cat << EOF > $JUPYTER_PYSPARK_BIN
