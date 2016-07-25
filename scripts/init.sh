@@ -7,6 +7,8 @@ sudo /usr/local/bin/pip3 install numpy
 sudo /usr/local/bin/pip3 install matplotlib
 # sudo /usr/local/bin/pip3 install pandas
 sudo /usr/local/bin/pip3 install runipy
+sudo /usr/local/bin/pip3 install plotly
+sudo /usr/local/bin/pip3 install cufflinks
 
 # for s3fs
 sudo yum install -y gcc gcc-c++

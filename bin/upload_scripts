@@ -1,4 +1,16 @@
-aws s3 cp scripts/init.sh s3://wzdat/scripts/wadal/ --region=$AWS_REGION
-aws s3 cp scripts/cp_csvlib.sh s3://wzdat/scripts/wadal/ --region=$AWS_REGION
-aws s3 cp scripts/run_jupyter.sh s3://wzdat/scripts/wadal/ --region=$AWS_REGION
+if [[ $# -lt 1 ]] ; then
+    echo 'enter profile'
+    exit 0
+fi
+
+source profiles/$1
+
+aws s3 cp scripts/commons-csv-1.1.jar $INIT_SCRIPT_S3_URL  --region=$AWS_REGION
+aws s3 cp scripts/spark-csv_2.11-1.4.0.jar $INIT_SCRIPT_S3_URL  --region=$AWS_REGION
+
+echo $(eval echo $(cat _cp_csvlib.sh)) > cp_csvlib.sh
+
+aws s3 cp scripts/init.sh $INIT_SCRIPT_S3_URL  --region=$AWS_REGION
+aws s3 cp scripts/cp_csvlib.sh $INIT_SCRIPT_S3_URL --region=$AWS_REGION
+aws s3 cp scripts/run_jupyter.sh $INIT_SCRIPT_S3_URL --region=$AWS_REGION
 
