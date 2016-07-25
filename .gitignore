@@ -3,3 +3,4 @@
 *.template
 *env
 *_cluster.id
+scripts/cp_csvlib.sh

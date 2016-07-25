@@ -1,6 +1,6 @@
-# Wadal
+# wadal
 
-Webzen Advanced Data Analysis Lab
+wadal(Webzen Advance Data Analysis Lab)은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Jupyter + Pyspark을 환경을 설정해주는 유틸리티이다.
 
 ## 먼저 필요한 것들
 
@@ -13,9 +13,9 @@ AWS Command Line Interface 툴을 설치하고, EMR과 S3 권한이 있는 Crede
 
 ### S3
 
-클러스터 이용이 필요한 S3 저장소를 준비하자.
+클러스터 이용에 관련해 다음과 같은 S3 리소스를 준비하자.
 
-#### EMR 관련 스크립트를 올린 S3 경로 준비
+#### EMR 관련 스크립트를 올릴 S3 경로
 
 EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요하다. 
 
@@ -26,7 +26,7 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 이 스크립트들을 올릴 S3 경로를 준비한다. 예) `s3://my-bucket/scripts`
 
 
-#### 분석 노트북 용 S3 Bucket 준비
+#### 분석 노트북 용 S3 Bucket
 
 EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 Bucket을 하나 준비한다. 예) `s3://my-notebooks`
 
@@ -64,7 +64,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
     export EMR_MASTER_SG=YOUR-EMR-MASTER-SECURITY-GROUP
     export EMR_SLAVE_SG=YOUR-EMR-SLAVE-SECURITY-GROUP
-    export INIT_SCRIPT_S3_URL=S3-URL-FOR-INIT-SCRIPTS
+    export INIT_SCRIPT_DIR_S3=S3-URL-FOR-INIT-SCRIPTS
     export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-FOR-ANALYSIS-NOTEBOOKS
 
 ## 사용

@@ -14,7 +14,7 @@ aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
     InstanceGroupType=CORE,InstanceType=$EC2_TYPE,InstanceCount=1 \
     InstanceGroupType=TASK,InstanceType=$EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE,BidPrice=$TASK_SPOT_BID_PRICE \
     --configurations '[{"Classification":"spark","Properties":{"maximizeResourceAllocation":"true"},"Configurations":[]}]' \
-    --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_SCRIPT_S3_URL/init.sh \
+    --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_SCRIPT_DIR_S3/init.sh \
     --enable-debugging \
     --log-uri $EMR_LOG_URI \
     --ec2-attributes \
@@ -22,4 +22,4 @@ KeyName=$AWS_KEY_NAME,\
 InstanceProfile=EMR_EC2_DefaultRole,\
 EmrManagedMasterSecurityGroup=$EMR_MASTER_SG,\
 EmrManagedSlaveSecurityGroup=$EMR_SLAVE_SG \
-    --steps Type=CUSTOM_JAR,Name=CopyCSVLib,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_S3_URL/cp_csvlib.sh"] Type=CUSTOM_JAR,Name=RunJupyter,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_S3_URL/run_jupyter.sh","$AWS_S3_ACCESS_KEY","$AWS_S3_SECRET_KEY","$NOTEBOOK_S3_BUCKET"] | sed -n '/ClusterId/p' | cut -d':' -f2 | tr -d ' "'> "$1_cluster.id"
+    --steps Type=CUSTOM_JAR,Name=CopyCSVLib,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_DIR_S3/cp_csvlib.sh"] Type=CUSTOM_JAR,Name=RunJupyter,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_DIR_S3/run_jupyter.sh","$AWS_S3_ACCESS_KEY","$AWS_S3_SECRET_KEY","$NOTEBOOK_S3_BUCKET"] | sed -n '/ClusterId/p' | cut -d':' -f2 | tr -d ' "'> "$1_cluster.id"
