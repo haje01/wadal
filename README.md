@@ -69,14 +69,12 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
     export AWS_KEY_PATH="AWS-KEY-FILE-PATH(include .pem)"
     export AWS_S3_ACCESS_KEY=AWS-S3-ACCESS-KEY-FOR-NOTEBOOK-SYNC
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
-    export EMR_MASTER_SG=YOUR-EMR-MASTER-SECURITY-GROUP
-    export EMR_SLAVE_SG=YOUR-EMR-SLAVE-SECURITY-GROUP
     export INIT_SCRIPT_DIR_S3=S3-URL-FOR-INIT-SCRIPTS
-    export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-FOR-ANALYSIS-NOTEBOOKS
+    export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-TO-STORE-NOTEBOOKS
 
 ## 사용
 
-위에서 만든 프로파일 명을 끝에 넣어주고, 아래와 같은 다양한 명령을 수행한다.
+위에서 만든 프로파일 명으로, 아래와 같은 다양한 명령을 수행한다.
 
 ### 스크립트 올리기
 
@@ -96,7 +94,7 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
     bin/notebooks myenv
 
-### 하둡 마스터 노드에 로그인
+### 하둡 마스터 노드에 SSH 접속
 
     bin/ssh myenv
 
@@ -107,16 +105,16 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
 ## 주의할 것
 
-### Security Group
+### Security Group 설정
 
 기본적으로 EMR 클러스터를 생성할 때 하둡 Master와 Slave를 위한 Security Group(이하 SG)이 자동적으로 만들어지게 된다. 그러나 기본 SG를 그대로 쓰지 말고 다음과 같이 수정해주자.
 
 - 기본적으로 SSH 포트(22)가 모든 대역에 대해 열려 있다. 이것을 필요한 IP 대역으로 제한하자.
-- Jupyter 노트북 접속을 위해 8192포트를 필요한 IP 대역으로 열어주자
+- Jupyter 노트북은 포트 8192로 열려있다. 기본 SG에는 이것이 빠져있기에, 접속이 필요한 IP 대역으로 열어주자
 
-이 작업은 AWS 대쉬보드의 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본SG가 그대로 사용된다.
+이 작업은 AWS 대쉬보드에서 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본SG가 그대로 사용된다.
 
 ### 클러스터 제거
 
-다 사용한 클러스터는 꼭 terminate 하자
+다 사용한 클러스터는 꼭 terminate 해 비용을 절감하자.
 
