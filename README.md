@@ -1,6 +1,6 @@
 # wadal
 
-wadal(Webzen Advance Data Analysis Lab)은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Jupyter + Pyspark을 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
+wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Jupyter + Pyspark을 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
 
 - 다양한 설정의 EMR 클러스터를 관리하기 위한 프로파일 기능
 - Jupyter 노트북 환경에서 Pyspark을 사용
