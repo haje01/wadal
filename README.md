@@ -33,10 +33,14 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 이 스크립트들을 올릴 S3 경로를 준비한다. 예) `s3://my-bucket/scripts`
 
 
+#### EMR 로그가 저장될 S3 경로
+
+EMR 동작상의 문제를 확인하기 위해 로그가 저장될 S3 경로를 준비한다. 예) `s3n://my-bucket/emr-logs/elasticmapreduce`
+
+
 #### 분석 노트북 용 S3 Bucket
 
 EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 Bucket을 하나 준비한다. 예) `s3://my-notebooks`
-
 
 ### Spot Instance 가격 파악
 
