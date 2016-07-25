@@ -1,6 +1,13 @@
 # wadal
 
-wadal(Webzen Advance Data Analysis Lab)은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Jupyter + Pyspark을 환경을 설정해주는 유틸리티이다.
+wadal(Webzen Advance Data Analysis Lab)은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Jupyter + Pyspark을 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
+
+- 다양한 설정의 EMR 클러스터를 관리하기 위한 프로파일 기능
+- Jupyter 노트북 환경에서 Pyspark을 사용
+- Databricks의 Spark 용 [CSV 처리 모듈](https://github.com/databricks/spark-csv) 포함
+- 분석 노트북을 지정한 S3 Bucket에 동기
+
+wadal은 bash shell의 명령어를 사용하기에 Mac OS나 Linux 기반에서 동작한다.
 
 ## 먼저 필요한 것들
 
@@ -31,9 +38,20 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 Bucket을 하나 준비한다. 예) `s3://my-notebooks`
 
 
+### Security Group
+
+기본적으로 EMR 클러스터를 생성할 때 하둡 Master와 Slave를 위한 Security Group이 자동적으로 만들어지게 된다. 그러나 필요한 경우 커스텀한 Security Group을 각각 만들어 두고 설정 파일에서 이를 지정할 수 있다.
+
+*EMR의 기본 Master Security Group은 SSH포트(22)가 모든 대역으로 열려있기에, 가급적 이것을 수정한 커스텀 Security Group을 지정하여 사용하기를 권장한다.*
+
+#### EMR 용 커스텀 Security Group 만들기
+
+처음에는 EMR 클러스터를 하나 만들고 거기에서 Master 노드와 Slave(Core 혹은 Task) 노드에 붙어 있는 Security Group를 적당한 이름으로 복사 후, 필요에 맞게 수정하여 사용한다.
+
+
 ### Spot Instance 가격 파악
 
-Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타입, 리전 등)에서의 시세를 알아둔다
+Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타입, 리전 등)에서의 시세를 알아두고, 시세보다 약간 높은 가격으로 설정파일에 기입한다.
 
 
 ## 설정 파일 만들기
