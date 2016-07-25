@@ -38,17 +38,6 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 Bucket을 하나 준비한다. 예) `s3://my-notebooks`
 
 
-### Security Group
-
-기본적으로 EMR 클러스터를 생성할 때 하둡 Master와 Slave를 위한 Security Group이 자동적으로 만들어지게 된다. 그러나 필요한 경우 커스텀한 Security Group을 각각 만들어 두고 설정 파일에서 이를 지정할 수 있다.
-
-*EMR의 기본 Master Security Group은 SSH포트(22)가 모든 대역으로 열려있기에, 가급적 이것을 수정한 커스텀 Security Group을 지정하여 사용하기를 권장한다.*
-
-#### EMR 용 커스텀 Security Group 만들기
-
-처음에는 EMR 클러스터를 하나 만들고 거기에서 Master 노드와 Slave(Core 혹은 Task) 노드에 붙어 있는 Security Group를 적당한 이름으로 복사 후, 필요에 맞게 수정하여 사용한다.
-
-
 ### Spot Instance 가격 파악
 
 Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타입, 리전 등)에서의 시세를 알아두고, 시세보다 약간 높은 가격으로 설정파일에 기입한다.
@@ -117,6 +106,17 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
 
 ## 주의할 것
+
+### Security Group
+
+기본적으로 EMR 클러스터를 생성할 때 하둡 Master와 Slave를 위한 Security Group(이하 SG)이 자동적으로 만들어지게 된다. 그러나 기본 SG를 그대로 쓰지 말고 다음과 같이 수정해주자.
+
+- 기본적으로 SSH 포트(22)가 모든 대역에 대해 열려 있다. 이것을 필요한 IP 대역으로 제한하자.
+- Jupyter 노트북 접속을 위해 8192포트를 필요한 IP 대역으로 열어주자
+
+이 작업은 AWS 대쉬보드의 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본SG가 그대로 사용된다.
+
+### 클러스터 제거
 
 다 사용한 클러스터는 꼭 terminate 하자
 
