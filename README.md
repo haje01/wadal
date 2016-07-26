@@ -52,8 +52,6 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
 ## 설정 파일 만들기
 
-앞에서 준비해둔 정보로 설정파일을 만든다.
-
 1. `env.template`을 복사해 용도에 맞는 이름으로 `profiles/`아래에 넣음
 
         cp env.template profiles/myenv
@@ -62,8 +60,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
 2. 에디터로 설정 파일을 편집
 
-
-*Spot Instance를 사용하는 경우 미리 해당 리전의 시세를 알아둔다.*
+앞에서 준비해둔 정보로 각 변수의 값을 채워 넣는다.
 
     export CLUSTER_NAME="YOUR-CLUSTER-NAME"
     export AWS_REGION=YOUR-AWS-REGION
@@ -80,11 +77,12 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
 ## 사용
 
-위에서 만든 프로파일 명을 인자로 하여, 아래와 같은 다양한 명령을 수행한다.
+만들어둔 프로파일 이름을 인자로 하여, 아래와 같은 다양한 명령을 수행한다.
+
 
 ### 스크립트 올리기
 
-EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과정은 최초 한번만 수행하면 된다.
+EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과정은 Region 당 한번만 수행하면 된다.
 
     bin/upload-scripts myenv
 
