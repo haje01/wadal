@@ -5,7 +5,7 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Ju
 - 다양한 셋팅의 EMR 클러스터를 사용할 수 있는 프로파일 기능
 - Jupyter 노트북 환경에서 Pyspark을 사용
 - Databricks의 Spark 용 [CSV 처리 모듈](https://github.com/databricks/spark-csv) 포함
-- 분석 노트북을 지정한 S3 Bucket에 동기
+- 분석 노트북을 지정한 S3 버킷에 동기
 
 *wadal은 bash shell의 명령어를 사용하기에 Mac OS나 Linux 기반에서 동작한다.*
 
@@ -39,11 +39,11 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 
 #### 분석 노트북 용 S3 버킷과 키
 
-EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 버킷을 하나 생성한다. 예) `s3://my-notebooks`
+EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘 S3 버킷을 하나 생성한다. 예) `s3://my-notebooks`
 
 클러스터가 만들어지면 `/home/hadoop/notebooks` 폴더가 생기고, Jupyter 노트북에서 작업한 내용은 이 폴더에 저장된다.
 
-*이 폴더에 저장된 내용은 자동으로 이 S3 버킷에 동기되어, 클러스터 제거 후 다시 생성하여도 작업 내용이 그대로 남아있게 된다.*
+이 폴더에 저장된 내용은 *자동으로 이 S3 버킷에 동기되어, 클러스터 제거 후 다시 생성하여도 작업 내용이 그대로 남아있게* 된다.
 
 이를 위해 이 버킷에 읽기/쓰기가 가능한 Access Key 와 Secret Key 도 준비한다.
 
