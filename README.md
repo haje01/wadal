@@ -7,20 +7,24 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Ju
 - Databricks의 Spark 용 [CSV 처리 모듈](https://github.com/databricks/spark-csv) 포함
 - 분석 노트북을 지정한 S3 Bucket에 동기
 
-wadal은 bash shell의 명령어를 사용하기에 Mac OS나 Linux 기반에서 동작한다.
+*wadal은 bash shell의 명령어를 사용하기에 Mac OS나 Linux 기반에서 동작한다.*
 
 ## 먼저 필요한 것들
 
 ### aws cli
 
-AWS Command Line Interface 툴을 설치하고, EMR과 S3 권한이 있는 Credential로 설정한다.
+우선 AWS Command Line Interface 툴을 설치하고, EMR과 S3 권한이 있는 Credential을 설정해야한다. 아래 링크를 참고하여 진행하자.
 
 1. [AWS 명령줄 인터페이스 설치](https://aws.amazon.com/ko/cli/)
 2. [AWS CLI 설정](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
+### EC2 키 페어
+
+만들어진 EMR 클러스터에 접속하기 위해서 [EC2 키 페어](http://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ec2-key-pairs.html)가 필요하다.
+
 ### S3
 
-클러스터 이용에 관련해 다음과 같은 S3 리소스를 준비하자.
+클러스터 이용에 관련해 다음과 같은 S3 리소스를 준비해야 한다.
 
 #### EMR 관련 스크립트를 올릴 S3 경로
 
@@ -32,15 +36,10 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 
 이 스크립트들을 올릴 S3 경로를 준비한다. 예) `s3://my-bucket/scripts`
 
-
-#### EMR 로그가 저장될 S3 경로
-
-EMR 동작상의 문제를 확인하기 위해 로그가 저장될 S3 경로를 준비한다. 예) `s3n://my-bucket/emr-logs/elasticmapreduce`
-
-
 #### 분석 노트북 용 S3 Bucket
 
 EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 Bucket을 하나 준비한다. 예) `s3://my-notebooks`
+
 
 ### Spot Instance 가격 파악
 
@@ -55,7 +54,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
         cp env.template profiles/myenv
 
-    앞으로 이 파일 `myenv`을 *프로파일 명* 으로 한다.
+    앞으로 이 파일 `myenv`을 **프로파일 명** 으로 한다.
 
 2. 에디터로 설정 파일을 편집
 
@@ -68,9 +67,8 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
     export NUM_TASK_INSTANCE=3
     export TASK_SPOT_BID_PRICE=TASK-SPOT-INSTANCE-BID-PRICE ex)0.06
     export EC2_TYPE=EC2-INSTANCE-TYPE ex)m3.xlarge
-    export EMR_LOG_URI="s3n://YOUR-BUCKET//YOUR-PATH-FOR-AWS-LOG/elasticmapreduce/"
-    export AWS_KEY_NAME=EMR-KEY-NAME
-    export AWS_KEY_PATH="AWS-KEY-FILE-PATH(include .pem)"
+    export EC2_KEY_PAIR_NAME=EC2-KEY-PAIR-NAME
+    export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
     export AWS_S3_ACCESS_KEY=AWS-S3-ACCESS-KEY-FOR-NOTEBOOK-SYNC
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
     export INIT_SCRIPT_DIR_S3=S3-URL-FOR-INIT-SCRIPTS
