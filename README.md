@@ -111,7 +111,7 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
     bin/state myenv
 
-클러스터 상태는 `STARTING`, `BOOTSTRAPPING`, 'RUNNING', `WAITING` 으로 나뉘어 진다. `RUNNING` 이나 `WAITING` 상태면 클러스터를 사용할 수 있다.
+클러스터 상태는 `STARTING`, `BOOTSTRAPPING`, `RUNNING`, `WAITING` 으로 나뉘어 진다. `RUNNING` 이나 `WAITING` 상태면 클러스터를 사용할 수 있다.
 
 ### Jupyter 노트북 열기
 
