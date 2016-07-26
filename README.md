@@ -34,11 +34,15 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
     scripts/cp_csvlib.sh
     scripts/run_jupyter.sh
 
-이 스크립트들을 올릴 S3 경로를 준비한다. 예) `s3://my-bucket/scripts`
+이 스크립트들을 올릴 S3 경로를 준비한다. 예) `s3://my-bucket/scripts/wadal`
 
 #### 분석 노트북 용 S3 Bucket
 
 EMR 클러스터는 사용 후 제거되기에 분석 노트북을 저장해둘 S3 Bucket을 하나 준비한다. 예) `s3://my-notebooks`
+
+클러스터가 만들어지면 `/home/hadoop/notebooks` 폴더가 생기고, Jupyter 노트북에서 작업한 내용은 이 폴더에 저장된다.
+
+*이 폴더에 저장된 내용은 자동으로 S3 버킷에 동기되어, 클러스터 제거 후 다시 생성하여도 작업 내용이 그대로 남아있게 된다.*
 
 
 ### Spot Instance 가격 파악
@@ -92,9 +96,13 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
     bin/state myenv
 
+클러스터 상태는 `STARTING`, `BOOTSTRAPPING`, 'RUNNING', `WAITING` 으로 나뉘어 진다. `RUNNING` 이나 `WAITING` 상태면 클러스터를 사용할 수 있다.
+
 ### Jupyter 노트북 열기
 
     bin/notebooks myenv
+
+웹브라우저를 띄워 생성된 클러스터의 Jupyter 노트북에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 Jupyter 노트북 용 포트를 열어주어야 한다.
 
 ### 하둡 마스터 노드에 SSH 접속
 
