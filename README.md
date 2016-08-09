@@ -69,11 +69,11 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
 ## 프로파일 만들기
 
-1. `env.template`을 복사해 용도에 맞는 이름으로 `profiles/`아래에 넣음
+1. `profile.template`을 복사해 용도에 맞는 이름으로 `profiles/`아래에 넣음
 
-        cp env.template profiles/myenv
+        cp profile.template profiles/mypro
 
-    앞으로 이 파일 `myenv`을 **프로파일 명** 으로 한다.
+    앞으로 이 파일 `mypro`을 **프로파일 명** 으로 한다.
 
 2. 에디터로 파일을 편집
 
@@ -101,31 +101,31 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
 EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과정은 *Region 당 한번만 수행*하면 된다.
 
-    bin/upload-scripts myenv
+    bin/upload-scripts mypro
 
 ### 클러스터 생성
 
-    bin/create-cluster myenv
+    bin/create-cluster mypro
 
 ### 클러스터 상태 확인
 
-    bin/state myenv
+    bin/state mypro
 
 클러스터 상태는 `STARTING`, `BOOTSTRAPPING`, `RUNNING`, `WAITING` 으로 나뉘어 진다. `RUNNING` 이나 `WAITING` 상태면 클러스터를 사용할 수 있다.
 
 ### Jupyter 노트북 열기
 
-    bin/notebooks myenv
+    bin/notebooks mypro
 
 웹브라우저를 띄워 생성된 클러스터의 Jupyter 노트북에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
 
 ### 하둡 마스터 노드에 SSH 접속
 
-    bin/ssh myenv
+    bin/ssh mypro
 
 ### EMR 클러스터 제거
 
-    bin/terminate myenv
+    bin/terminate mypro
 
 
 ## 주의할 것
