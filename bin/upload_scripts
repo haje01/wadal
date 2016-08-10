@@ -1,4 +1,4 @@
-if [[ $# -lt 1 ]] ; then
+if n[[ $# -lt 1 ]] ; then
     echo 'enter profile'
     exit 0
 fi

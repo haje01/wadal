@@ -62,9 +62,13 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 Task 노드는 HDFS 스토리지를 가지지 않는 워커노드이다. Spot으로 쓰기에 큰 부담이 되지는 않는다. 시작은 3대로 하고, 다량의 데이터 처리 또는 램이 많이 필요한 경우 더 늘려주자.
 
+#### SubnetID 선택
+
+최근 인스턴스 타입은 VPC안에서 실행되기에 SubnetID를 필요로 한다. 클러스터를 만들 VPC를 선택(기본 VPC도 괜찮다)하고 거기에 속하는 SubnetID를 알아두자.
+
 #### Spot Instance 가격 파악
 
-Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타입, 리전 등)에서의 시세를 알아두자. AWS EC2 생성 페이지에서 확인할 수 있다. 시세보다 약간 높은 가격으로 프로파일에 기입한다. 
+Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타입, 리전, Subnet이 속한 AZ) 등)에서의 시세를 알아두자. 시세보다 약간 높은 가격으로 프로파일에 기입한다. 
 
 
 ## 프로파일 만들기
@@ -81,7 +85,8 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인트턴스 타
 
     export CLUSTER_NAME="YOUR-CLUSTER-NAME"
     export AWS_REGION=YOUR-AWS-REGION
-    export AWS_EMR_LABEL=EMR-LABEL ex)emr-4.7.1
+    export AWS_EMR_LABEL=EMR-LABEL ex)emr-5.0.0
+    export AWS_EMR_SUBNET=EMR-VPC-SUBNET ex)subnet-a55xxxxx
     export NUM_TASK_INSTANCE=3
     export TASK_SPOT_BID_PRICE=TASK-SPOT-INSTANCE-BID-PRICE ex)0.06
     export EC2_TYPE=EC2-INSTANCE-TYPE ex)m3.xlarge
