@@ -30,7 +30,8 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Ju
 
 EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요하다. 
 
-    scripts/init.sh
+    scripts/init_py.sh
+    scripts/init_r.sh
     scripts/cp_csvlib.sh
     scripts/run_jupyter.sh
 
@@ -110,11 +111,17 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 
 EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과정은 *Region 당 한번만 수행*하면 된다.
 
-    bin/upload-scripts mypro
+    bin/upload_scripts mypro
 
 ### 클러스터 생성
 
-    bin/create-cluster mypro
+PySpark을 위한 클러스터는 다음과 같이 생성한다.
+
+    bin/create_py mypro
+
+R을 위한 클러스터는 다음과 같이 생성한다.
+
+    bin/create_r mypro
 
 ### 클러스터 상태 확인
 
@@ -127,6 +134,12 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
     bin/notebooks mypro
 
 웹브라우저를 띄워 생성된 클러스터의 Jupyter 노트북에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
+
+### RStudio 열기
+
+    bin/rstudio mypro
+
+웹브라우저를 띄워 생성된 클러스터의 RStudio에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
 
 ### 하둡 마스터 노드에 SSH 접속
 
@@ -144,7 +157,7 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 기본적으로 EMR 클러스터를 생성할 때 하둡 Master와 Slave를 위한 Security Group(이하 SG)이 자동적으로 만들어지게 된다. 그러나 기본 SG를 그대로 쓰지 말고 다음과 같이 수정해주자.
 
 - 기본적으로 SSH 포트(22)가 모든 대역에 대해 열려 있다. 이것을 필요한 IP 대역으로 제한하자.
-- Jupyter 노트북은 포트 8192로 열려있다. 기본 SG에는 이것이 빠져있기에, 접속이 필요한 IP 대역으로 열어주자
+- Jupyter 노트북은 포트 8192, R Server는 8787로 열려있다. 기본 SG에는 이것이 빠져있기에, 접속이 필요한 IP 대역으로 열어주자
 
 이 작업은 AWS 대쉬보드에서 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본 SG가 그대로 사용된다.
 

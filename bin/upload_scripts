@@ -1,4 +1,4 @@
-if n[[ $# -lt 1 ]] ; then
+if [[ $# -lt 1 ]] ; then
     echo 'enter profile'
     exit 0
 fi
@@ -10,7 +10,8 @@ aws s3 cp scripts/spark-csv_2.11-1.4.0.jar $INIT_SCRIPT_DIR_S3/  --region=$AWS_R
 
 sed 's#{INIT_SCRIPT_DIR_S3}#'"$INIT_SCRIPT_DIR_S3"'#g; s#{AWS_REGION}#'"$AWS_REGION"'#g' scripts/_cp_csvlib.sh > scripts/cp_csvlib.sh
 
-aws s3 cp scripts/init.sh $INIT_SCRIPT_DIR_S3/  --region=$AWS_REGION
+aws s3 cp scripts/init_py.sh $INIT_SCRIPT_DIR_S3/  --region=$AWS_REGION
+aws s3 cp scripts/init_r.sh $INIT_SCRIPT_DIR_S3/  --region=$AWS_REGION
 aws s3 cp scripts/cp_csvlib.sh $INIT_SCRIPT_DIR_S3/ --region=$AWS_REGION
 aws s3 cp scripts/run_jupyter.sh $INIT_SCRIPT_DIR_S3/ --region=$AWS_REGION
 

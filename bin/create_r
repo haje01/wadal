@@ -15,7 +15,7 @@ aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
     InstanceGroupType=CORE,InstanceType=$EC2_TYPE,InstanceCount=1 \
     InstanceGroupType=TASK,InstanceType=$EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE,BidPrice=$TASK_SPOT_BID_PRICE \
     --configurations '[{"Classification":"spark","Properties":{"maximizeResourceAllocation":"true"},"Configurations":[]}]' \
-    --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_SCRIPT_DIR_S3/init.sh \
+    --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_SCRIPT_DIR_S3/init_r.sh \
     --ec2-attributes \
 KeyName=$EC2_KEY_PAIR_NAME,\
 InstanceProfile=EMR_EC2_DefaultRole,\
