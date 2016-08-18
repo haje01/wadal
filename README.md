@@ -51,9 +51,9 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 ### 사용할 정보 결정
 
-#### 플랫폼
+#### 분석 플랫폼
 
-Python과 R을 사용할 수 있다. Python은 Jupyter 노트북으로, R은 웹버전 RStudio로 사용한다.
+현재 지원하는 플랫폼은 Python과 R이다.
 
 #### AWS 리전
 
@@ -92,7 +92,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 
 앞에서 준비해둔 정보로 각 변수의 값을 채워 넣는다.
 
-    export PLATFORM=YOUR-ANALYSIS-PLATFORM  ex) py, r
+    export PLATFORM=YOUR-PLATFORM ex) py or r
     export CLUSTER_NAME="YOUR-CLUSTER-NAME"
     export AWS_REGION=YOUR-AWS-REGION
     export AWS_EMR_LABEL=EMR-LABEL ex)emr-5.0.0
@@ -120,7 +120,7 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
 ### 클러스터 생성
 
-다음과 같이 클러스터를 생성한다.
+클러스터는 다음과 같이 생성한다.
 
     bin/create_cluster mypro
 

@@ -7,14 +7,14 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 # Configure s3fs
 sudo su -l hadoop bash -c "echo -e $1:$2 > ~/.passwd-s3fs"
 sudo chmod 600 ~/.passwd-s3fs
-sudo su -l hadoop -c "mkdir ~/notebooks"
-sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/notebooks"
+sudo su -l hadoop -c "mkdir ~/works"
+sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/works"
 
 # Configure Jupyter
 sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
 
 JUPYTER_NOTEBOOK_CONFIG=/home/hadoop/.jupyter/jupyter_notebook_config.py
-sudo sed -i -e '3a c.NotebookApp.notebook_dir = "/home/hadoop/notebooks"' $JUPYTER_NOTEBOOK_CONFIG
+sudo sed -i -e '3a c.NotebookApp.notebook_dir = "/home/hadoop/works"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.ip = "*"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.open_browser = False' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.port = 8192' $JUPYTER_NOTEBOOK_CONFIG
