@@ -1,9 +1,10 @@
 # wadal
 
-wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Jupyter + Pyspark을 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
+wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 PySpark + Jupyter 또는 SparkR + RStudio 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
 
 - 다양한 셋팅의 EMR 클러스터를 사용할 수 있는 프로파일 기능
-- Jupyter 노트북 환경에서 Pyspark을 사용
+- Jupyter 노트북 환경에서 PySpark을 사용
+- RStudio(웹버전) 환경에서 SparkR을 사용
 - Databricks의 Spark 용 [CSV 처리 모듈](https://github.com/databricks/spark-csv) 포함
 - 분석 노트북을 지정한 S3 버킷에 동기
 
