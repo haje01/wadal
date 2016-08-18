@@ -1,0 +1,16 @@
+if [[ $# -lt 1 ]] ; then
+    echo 'enter profile'
+    exit 0
+fi
+
+source profiles/$1
+
+case "$PLATFORM" in
+
+py) source bin/_create_py
+  ;;
+r) source bin/_create_r
+  ;;
+*) echo "Invalid option"
+ ;;
+esac
