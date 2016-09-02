@@ -3,7 +3,14 @@ if [[ $# -lt 1 ]] ; then
     exit 0
 fi
 
+if [ -z "$2" ]
+then
+    lsopt=""
+else
+    lsopt=$2
+fi
+
 source profiles/$1
 
 host="$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')"
-ssh -i $EC2_KEY_PAIR_PATH hadoop@$host "ls works/"
+ssh -i $EC2_KEY_PAIR_PATH hadoop@$host "ls $lsopt works/"
