@@ -1,0 +1,10 @@
+if [[ $# -lt 2 ]] ; then
+    echo 'enter profile, src'
+    exit 0
+fi
+
+source profiles/$1
+
+host="$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')"
+scp -i $EC2_KEY_PAIR_PATH hadoop@$host:"works/$2" .
+ssh -i $EC2_KEY_PAIR_PATH hadoop@$host rm "works/$2"
