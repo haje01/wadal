@@ -159,9 +159,9 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
     bin/run_notebook myproj mynote.ipynb
 
-결과는 다음과 같이 저장된다.
+결과는 다음과 같이 HTML 형식으로 저장된다.
 
-    works/mynote.nbconvert.ipynb
+    works/mynote.html
 
 ### 파일 올리기
 
@@ -198,7 +198,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
     bin/move mypro README.md
 
-와 같이 하면 작업 폴더에 있는 파일을 현재 폴더로 내려 받은 후, 작업 폴더에 원본 파일은 지워진다.
+와 같이 하면 작업 폴더에 있는 파일을 현재 폴더로 내려 받은 후, 작업 폴더의 원본 파일은 지워진다.
 
 
 ### 작업 폴더 내용 보기

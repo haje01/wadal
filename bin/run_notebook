@@ -18,4 +18,4 @@ then
     RUN_NOTEBOOK_ENVS="$envvar"
 fi
 
-ssh -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert works/$nbpath --execute --to notebook' SPARK_PACKAGES=com.databricks:spark-csv_2.11:1.4.0 $RUN_NOTEBOOK_ENVS pyspark --packages com.databricks:spark-csv_2.11:1.4.0"
+ssh -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert works/$nbpath --execute --to html --template=report.tpl' SPARK_PACKAGES=com.databricks:spark-csv_2.11:1.4.0 $RUN_NOTEBOOK_ENVS pyspark --packages com.databricks:spark-csv_2.11:1.4.0"
