@@ -3,6 +3,11 @@ if [[ $# -lt 1 ]] ; then
     exit 0
 fi
 
+if [ -f "clusters/$1_cluster.id" ]; then
+    echo "cluster '$1' already exists"
+    exit 0
+fi
+
 source profiles/$1
 
 case "$PLATFORM" in

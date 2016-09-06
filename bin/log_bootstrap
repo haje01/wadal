@@ -5,5 +5,5 @@ fi
 
 source profiles/$1
 
-ssh -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "tail -f /mnt/var/log/bootstrap-actions/master.log"
+ssh -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "tail -f /mnt/var/log/bootstrap-actions/master.log"
 

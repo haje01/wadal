@@ -4,4 +4,4 @@ if [[ $# -lt 1 ]] ; then
 fi
 
 source profiles/$1
-ssh -i $EC2_KEY_PAIR_PATH -N -D 8157 hadoop@$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')
+ssh -i $EC2_KEY_PAIR_PATH -N -D 8157 hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')

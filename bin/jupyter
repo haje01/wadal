@@ -5,4 +5,4 @@ fi
 
 source profiles/$1
 
-open http://$(aws emr describe-cluster --cluster-id `cat "$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",' | awk '{print$1":8192"}')
+open http://$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",' | awk '{print$1":8192"}')
