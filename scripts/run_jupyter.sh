@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Environments
-SPARK_PACKAGES=com.databricks:spark-csv_2.11:1.4.0
 JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
 # Configure s3fs
@@ -33,9 +32,8 @@ export SPARK_HOME=/usr/lib/spark/
 export PYSPARK_PYTHON=/usr/bin/python3
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
-export SPARK_PACKAGES=$SPARK_PACKAGES
-nohup pyspark --packages $SPARK_PACKAGES > $JUPYTER_LOG 2>&1 &
+nohup pyspark > $JUPYTER_LOG 2>&1 &
 EOF
 
 chmod +x $JUPYTER_PYSPARK_BIN
-$JUPYTER_PYSPARK_BIN
+sudo su -l hadoop $JUPYTER_PYSPARK_BIN

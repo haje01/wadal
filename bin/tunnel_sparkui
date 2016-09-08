@@ -1,0 +1,7 @@
+if [[ $# -lt 1 ]] ; then
+    echo 'enter profile, privateip'
+    exit 0
+fi
+
+source profiles/$1
+ssh -i $EC2_KEY_PAIR_PATH -N -L 4040:$2:4040 hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')
