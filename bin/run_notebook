@@ -18,19 +18,7 @@ else
 fi
 
 
-if [ -z ${ENV+x} ]
-then
-    envvar="NONE"
-else
-    envvar=${ENV}
-fi
-
 source profiles/$1
 nbpath=$2
 
-if [ "$envvar" != "NONE" ]
-then
-    ENV="$envvar"
-fi
-
-ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert \"works/$nbpath\" --execute --ExecutePreprocessor.timeout=1200 --to $format $templ $stdout' $ENV pyspark"
+ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert \"works/$nbpath\" --execute --ExecutePreprocessor.timeout=1200 --to $format $templ $stdout' $ENVS pyspark"

@@ -148,9 +148,6 @@ table {
 th {
   text-align: center;
 }
-tr:hover {
-  background-color: #f5f5b5;
-}
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
