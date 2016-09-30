@@ -22,6 +22,46 @@ cd s3fs-fuse-master
 make
 sudo make install
 
+# rar
+wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
+tar xzvf rarlinux-x64-5.4.0.tar.gz
+cd rar
+sudo cp rar unrar /usr/bin
+cd ..
+rm -fr rar
+rm rarlinux-x64-5.4.0.tar.gz 
+
+cat << EOF > /home/hadoop/.vimrc
+syntax on
+set ic
+set tabstop=4
+set shiftwidth=4
+set autoindent
+set hlsearch
+set smartindent
+set backspace=2
+set expandtab
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show Unicode glyphs
+set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
+
+au BufRead,BufNewFile *.html set textwidth=200
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.py set textwidth=79
+au BufRead,BufNewFile *.py set makeprg=pylint\ --reports=n\ --output-format=parseable\ %:p
+au BufRead,BufNewFile *.py set errorformat=%f:%l:\ %m
+au BufRead,BufNewFile *.sh set tabstop=2
+au BufRead,BufNewFile *.sh set shiftwidth=2
+au BufRead,BufNewFile *.js set tabstop=2
+au BufRead,BufNewFile *.js set shiftwidth=2
+au BufRead,BufNewFile *.html set tabstop=2
+au BufRead,BufNewFile *.html set shiftwidth=2
+au BufRead,BufNewFile *.css set tabstop=2
+au BufRead,BufNewFile *.css set shiftwidth=2
+au BufRead,BufNewFile *.py set tabstop=4
+EOF
+
+
 cat << EOF > tmpenv
 
 export SPARK_HOME=/usr/lib/spark/

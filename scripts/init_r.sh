@@ -4,8 +4,13 @@ sudo yum -y install git
 wget https://download2.rstudio.org/rstudio-server-rhel-0.99.903-x86_64.rpm
 sudo yum install -y --nogpgcheck rstudio-server-rhel-0.99.903-x86_64.rpm
 sudo adduser rstudio
+sudo usermod -aG hadoop rstudio
 sudo echo 'rstudio ALL = NOPASSWD: ALL' >> /etc/sudoers
 echo "rstudio:rstudio" | sudo chpasswd
+
+# install additional packages
+sudo Rscript -e 'update.packages(checkBuilt = TRUE, ask = FALSE, repos="http://cran.rstudio.com/")'
+sudo Rscript -e 'install.packages("tidyverse", repos = "http://cran.us.r-project.org")'
 
 # for s3fs
 sudo yum install -y gcc gcc-c++
@@ -18,3 +23,12 @@ cd s3fs-fuse-master
 ./configure
 make
 sudo make install
+
+# rar
+wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
+tar xzvf rarlinux-x64-5.4.0.tar.gz
+cd rar
+sudo cp rar unrar /usr/bin
+cd ..
+rm -fr rar
+rm rarlinux-x64-5.4.0.tar.gz 
