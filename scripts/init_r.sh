@@ -7,6 +7,11 @@ sudo adduser rstudio
 sudo usermod -aG hadoop rstudio
 sudo echo 'rstudio ALL = NOPASSWD: ALL' >> /etc/sudoers
 echo "rstudio:rstudio" | sudo chpasswd
+sudo su -l rstudio -c "cat << EOF >> /home/rstudio/.bashrc
+export AWS_DEFAULT_REGION=$(curl --retry 5 --silent --connect-timeout 2 http://169.254.169.254/latest/dynamic/instance-identity/document | grep region | awk -F\" '{print $4}')
+export JAVA_HOME=/etc/alternatives/jre
+EOF
+"
 
 # install additional packages
 sudo Rscript -e 'update.packages(checkBuilt = TRUE, ask = FALSE, repos="http://cran.rstudio.com/")'

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Configure s3fs
-sudo su -l rstudio bash -c "echo -e $1:$2 > ~/.passwd-s3fs"
-sudo chmod 600 ~/.passwd-s3fs
+sudo su -l rstudio -c "echo -e $1:$2 > ~/.passwd-s3fs"
+sudo su -l rstudio -c "chmod 600 ~/.passwd-s3fs"
 sudo su -l rstudio -c "mkdir ~/works"
 sudo su -l rstudio -c "/usr/local/bin/s3fs $3 /home/rstudio/works"
 
