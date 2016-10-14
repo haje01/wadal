@@ -5,7 +5,7 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
 # Configure s3fs
 sudo su -l hadoop -c "echo -e $1:$2 > ~/.passwd-s3fs"
-sudo su -l hadoop "chmod 600 ~/.passwd-s3fs"
+sudo su -l hadoop -c "chmod 600 ~/.passwd-s3fs"
 sudo su -l hadoop -c "mkdir ~/works"
 sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/works"
 
