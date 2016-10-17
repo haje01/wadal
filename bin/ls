@@ -1,5 +1,5 @@
 if [[ $# -lt 1 ]] ; then
-    echo 'enter profile'
+    echo 'enter profile, [ls option] [subdir]'
     exit 0
 fi
 
@@ -10,7 +10,14 @@ else
     lsopt=$2
 fi
 
+if [ -z "$3" ]
+then
+    subdir=""
+else
+    subdir=$3
+fi
+
 source profiles/$1
 
 host="$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')"
-ssh -i $EC2_KEY_PAIR_PATH hadoop@$host "ls $lsopt works/"
+ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$host "ls $lsopt works/$subdir"
