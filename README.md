@@ -156,9 +156,19 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 다음과 같이 커맨드 라인에서 실행할 수 있다.
 
-    bin/run_notebook myproj mynote.ipynb
+    bin/run_notebook myproj mynote.ipynb html
 
-결과는 다음과 같이 HTML 형식으로 저장된다.
+마지막의 `html`인자는 출력 포맷으로, 결과는 다음과 같이 HTML 형식으로 저장된다.
+
+    works/mynote.html
+
+#### HTML 리포트 형식
+
+노트북에서 코드를 제외하고 출력 부분(그래프, HTML 등)만 보고 싶다면 `htmlr`을 사용한다.
+
+    bin/run_notebook myproj mynote.ipynb htmlr
+
+결과 파일의 확장자는 동일하게 `.html`이다.
 
     works/mynote.html
 
