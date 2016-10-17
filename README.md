@@ -144,6 +144,15 @@ EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과
 
 RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실행해주면 SparkR을 사용하기 위한 초기화가 수행된다.
 
+### 클러스터 생성후 준비가 되면 동작하기
+
+클러스터 생성에는 시간이 꽤 걸린다. 어떤 명령을 내리기 위해 계속 보고 있기가 지루하다. `wait_ready`는 클러스터가 가용한 상태가 될 때까지 기다려 주기에, 다른 명령과 조합해서 사용하면 편리하다.
+
+    bin/create_cluster myproj && bin/wait_ready myproj && bin/jupyter myproj
+
+위의 명령은 클러스터 생성 후 준비가 되면 Jupyter 노트북을 열어준다.
+
+
 ### 하둡 마스터 노드에 SSH 접속
 
     bin/ssh mypro
