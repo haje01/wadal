@@ -13,4 +13,4 @@ aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
 KeyName=$EC2_KEY_PAIR_NAME,\
 InstanceProfile=EMR_EC2_DefaultRole,\
 SubnetId=$AWS_EMR_SUBNET\
-    --steps Type=CUSTOM_JAR,Name=CopyCSVLib,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_DIR_S3/cp_csvlib.sh"] Type=CUSTOM_JAR,Name=RunJupyter,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_DIR_S3/run_jupyter.sh","$AWS_S3_ACCESS_KEY","$AWS_S3_SECRET_KEY","$NOTEBOOK_S3_BUCKET"] | sed -n '/ClusterId/p' | cut -d':' -f2 | tr -d ' "' > "clusters/$1_cluster.id"
+    --steps Type=CUSTOM_JAR,Name=RunJupyter,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_SCRIPT_DIR_S3/run_jupyter.sh","$AWS_S3_ACCESS_KEY","$AWS_S3_SECRET_KEY","$NOTEBOOK_S3_BUCKET"] | sed -n '/ClusterId/p' | cut -d':' -f2 | tr -d ' "' > "clusters/$1_cluster.id"

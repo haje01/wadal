@@ -3,4 +3,3 @@
 .*.swp
 *.template
 *env
-scripts/cp_csvlib.sh

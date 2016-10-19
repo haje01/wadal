@@ -32,11 +32,11 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요
 
     scripts/init_py.sh
     scripts/init_r.sh
-    scripts/cp_csvlib.sh
     scripts/run_jupyter.sh
+    scripts/run_rstudio.sh
 
 이 스크립트들을 올릴 S3 경로를 정해둔다. 예) `s3://my-bucket/scripts/wadal`
-이 경로를 아래에서 설명할 프로파일 파일에 기입하고, 스크립트 올리기를 수행 하면 해당 경로가 만들어 지고 스크립트 파일들이 올라간다.
+이 경로를 아래에서 설명할 프로파일 파일의 `INIT_SCRIPT_DIR_S3`로 설정하고, 스크립트 올리기(`bin/upload_script`)를 수행 하면 해당 경로가 만들어 지고 스크립트 파일들이 올라간다.
 
 #### 분석 노트북 용 S3 버킷과 키
 
@@ -46,7 +46,7 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 이 폴더에 저장된 내용은 *자동으로 이 S3 버킷에 동기되어, 클러스터 제거 후 다시 생성하여도 작업 내용이 그대로 남아있게* 된다.
 
-이를 위해 이 버킷에 읽기/쓰기가 가능한 Access Key 와 Secret Key 도 준비한다.
+이를 위해 노트북용 버킷에 읽기/쓰기가 가능한 Access Key 와 Secret Key 도 준비하여, 각각 프로파일의 `AWS_S3_ACCESS_KEY`와 `AWS_S3_SECRET_KEY`로 설정한다. **이 키는 클러스터에 기록되기에, 가급적 S3 권한만 있는 별도 IAM 계정을 만들어 사용할 것을 권한다.**
 
 
 ### 사용할 정보 결정
@@ -264,6 +264,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 - Jupyter 노트북은 포트 8192, R Server는 8787로 열려있다. 기본 SG에는 이것이 빠져있기에, 접속이 필요한 IP 대역으로 열어주자
 
 이 작업은 AWS 대쉬보드에서 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본 SG가 그대로 사용된다.
+
 
 ### 클러스터 제거
 
