@@ -5,8 +5,11 @@ fi
 
 source profiles/$1
 
+sed 's#{INIT_SCRIPT_DIR_S3}#'"$INIT_SCRIPT_DIR_S3"'#g; s#{AWS_REGION}#'"$AWS_REGION"'#g' scripts/_cp_font.sh > scripts/cp_font.sh
+
 aws s3 cp scripts/init_py.sh $INIT_SCRIPT_DIR_S3/  --region=$AWS_REGION
 aws s3 cp scripts/init_r.sh $INIT_SCRIPT_DIR_S3/  --region=$AWS_REGION
 aws s3 cp scripts/run_jupyter.sh $INIT_SCRIPT_DIR_S3/ --region=$AWS_REGION
 aws s3 cp scripts/run_rstudio.sh $INIT_SCRIPT_DIR_S3/ --region=$AWS_REGION
-
+aws s3 cp scripts/cp_font.sh $INIT_SCRIPT_DIR_S3/ --region=$AWS_REGION
+aws s3 cp scripts/NanumGothic.ttf $INIT_SCRIPT_DIR_S3/ --region=$AWS_REGION

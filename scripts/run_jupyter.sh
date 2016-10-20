@@ -20,8 +20,20 @@ sudo sed -i -e '3a c.NotebookApp.port = 8192' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c = get_config()' $JUPYTER_NOTEBOOK_CONFIG
 
 IPYTHON_KERNEL_CONFIG=/home/hadoop/.ipython/profile_default/ipython_kernel_config.py
+IPYTHON_STARTUP_SCRIPT=/home/hadoop/.ipython/profile_default/startup/init.py
 sudo su -l hadoop -c "ipython profile create"
 sudo sed -i -e '3a c.InteractiveShellApp.matplotlib = "inline"' $IPYTHON_KERNEL_CONFIG
+cat << EOF > $IPYTHON_STARTUP_SCRIPT
+import numpy as np
+import matplotlib.pyplot as plt 
+
+import matplotlib as mlp 
+mlp.rcParams['font.family'] = u'NanumGothic'
+mlp.rcParams['font.size'] = 10
+
+import seaborn as sns 
+sns.set_style('darkgrid', {'font.family': [u'NanumGothic']})
+EOF
 
 
 # Launch Jupyter by executing "pyspark"

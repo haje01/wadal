@@ -5,10 +5,10 @@ curl https://bootstrap.pypa.io/get-pip.py | sudo python3.4
 sudo /usr/local/bin/pip3 install jupyter
 sudo /usr/local/bin/pip3 install numpy
 sudo /usr/local/bin/pip3 install matplotlib
-# sudo /usr/local/bin/pip3 install pandas
 sudo /usr/local/bin/pip3 install runipy
 sudo /usr/local/bin/pip3 install plotly
 sudo /usr/local/bin/pip3 install cufflinks
+sudo /usr/local/bin/pip3 install seaborn
 
 # for s3fs
 sudo yum install -y gcc gcc-c++
