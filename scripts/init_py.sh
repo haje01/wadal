@@ -9,6 +9,9 @@ sudo /usr/local/bin/pip3 install runipy
 sudo /usr/local/bin/pip3 install plotly
 sudo /usr/local/bin/pip3 install cufflinks
 sudo /usr/local/bin/pip3 install seaborn
+sudo /usr/local/bin/pip3 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
+sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 
 # for s3fs
 sudo yum install -y gcc gcc-c++

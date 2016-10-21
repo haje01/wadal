@@ -33,6 +33,7 @@ mlp.rcParams['font.size'] = 10
 
 import seaborn as sns 
 sns.set_style('darkgrid', {'font.family': [u'NanumGothic']})
+from IPython.display import HTML
 EOF
 
 
