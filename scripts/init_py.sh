@@ -1,17 +1,16 @@
 sudo yum -y install git
 
 # for pydata
-curl https://bootstrap.pypa.io/get-pip.py | sudo python3.4
-sudo /usr/local/bin/pip3 install jupyter
-sudo /usr/local/bin/pip3 install numpy
-sudo /usr/local/bin/pip3 install matplotlib
-sudo /usr/local/bin/pip3 install runipy
-sudo /usr/local/bin/pip3 install plotly
-sudo /usr/local/bin/pip3 install cufflinks
-sudo /usr/local/bin/pip3 install seaborn
-sudo /usr/local/bin/pip3 install boto3
-sudo /usr/local/bin/pip3 install rarfile
-sudo /usr/local/bin/pip3 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+sudo pip-3.4 install jupyter
+sudo pip-3.4 install numpy
+sudo pip-3.4 install matplotlib
+sudo pip-3.4 install runipy
+sudo pip-3.4 install plotly
+sudo pip-3.4 install cufflinks
+sudo pip-3.4 install seaborn
+sudo pip-3.4 install boto3
+sudo pip-3.4 install rarfile
+sudo pip-3.4 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 
