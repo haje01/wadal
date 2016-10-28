@@ -71,6 +71,7 @@ cat << EOF > tmpenv
 export SPARK_HOME=/usr/lib/spark/
 export PYSPARK_PYTHON=/usr/bin/python3
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
+# export SPARK_PACKAGES=graphframes:graphframes:0.2.0-spark2.0-s_2.11
 alias python=python3
 EOF
 

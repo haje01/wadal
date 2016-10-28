@@ -26,17 +26,19 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Py
 
 클러스터 이용에 관련해 다음과 같은 S3 리소스를 준비해야 한다.
 
-#### EMR 관련 스크립트를 올릴 S3 경로
+#### EMR 관련 애셋을 올릴 S3 경로
 
-EMR 클러스터 초기화 및 이용에 다음과 같은 스크립트가 필요하다. 
+EMR 클러스터 초기화 및 이용에 다음과 같은 애셋(스크립트+바이너리)가 필요하다. 
 
-    scripts/init_py.sh
-    scripts/init_r.sh
-    scripts/run_jupyter.sh
-    scripts/run_rstudio.sh
+    assets/init_py.sh
+    assets/init_r.sh
+    assets/run_jupyter.sh
+    assets/run_rstudio.sh
+    assets/cp_assets.sh
+    assets/NanumGothic.ttf
 
-이 스크립트들을 올릴 S3 경로를 정해둔다. 예) `s3://my-bucket/scripts/wadal`
-이 경로를 아래에서 설명할 프로파일 파일의 `INIT_SCRIPT_DIR_S3`로 설정하고, 스크립트 올리기(`bin/upload_script`)를 수행 하면 해당 경로가 만들어 지고 스크립트 파일들이 올라간다.
+이 애셋들을 올릴 S3 경로를 정해둔다. 예) `s3://my-bucket/wadal_assets`
+이 경로를 아래에서 설명할 프로파일 파일의 `INIT_ASSET_DIR_S3`로 설정하고, 애셋 올리기(`bin/upload_asset`)를 수행 하면 해당 경로가 만들어 지고 애셋 파일들이 올라간다.
 
 #### 분석 노트북 용 S3 버킷과 키
 
@@ -102,7 +104,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
     export AWS_S3_ACCESS_KEY=AWS-S3-ACCESS-KEY-FOR-NOTEBOOK-SYNC
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
-    export INIT_SCRIPT_DIR_S3=S3-URL-FOR-INIT-SCRIPTS
+    export INIT_ASSET_DIR_S3=S3-URL-FOR-INIT-ASSET
     export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-TO-STORE-NOTEBOOKS
 
 ## 사용
@@ -110,11 +112,11 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 만들어둔 프로파일 이름을 인자로 하여, 아래와 같은 다양한 명령을 수행한다.
 
 
-### 스크립트 올리기
+### 애셋 올리기
 
-EMR 클러스터 초기화에 필요한 스크립트를 업로드한다. 이 과정은 *Region 당 한번만 수행*하면 된다.
+EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은 *Region 당 한번만 수행*하면 된다.
 
-    bin/upload_scripts mypro
+    bin/upload_assets mypro
 
 ### 클러스터 생성
 

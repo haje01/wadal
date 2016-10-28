@@ -3,4 +3,4 @@
 .*.swp
 *.template
 *env
-scripts/cp_font.sh
+assets/cp_assets.sh
