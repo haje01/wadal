@@ -4,6 +4,8 @@ sudo yum -y install git
 sudo pip-3.4 install jupyter
 sudo pip-3.4 install numpy
 sudo pip-3.4 install matplotlib
+sudo pip-3.4 install cython
+sudo pip-3.4 install pandas
 sudo pip-3.4 install runipy
 sudo pip-3.4 install plotly
 sudo pip-3.4 install cufflinks
