@@ -71,6 +71,10 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 Task 노드는 HDFS 스토리지를 가지지 않는 워커노드이다. Spot으로 쓰기에 큰 부담이 되지는 않는다. 시작은 3대로 하고, 다량의 데이터 처리 또는 램이 많이 필요한 경우 더 늘려주자.
 
+#### Core 노드 수 결정
+
+Core 노드는 HDFS 스토리지를 가지는 워커노드이다. 기본은 1대이고 EBS 볼륨의 크기는 100GB이다. 다량의 데이터를 HDFS에 저장해야할 때는 명시적으로 늘려주자.
+
 #### Subnet 선택
 
 최근 인스턴스 타입은 VPC안에서 실행되기에 SubnetID를 필요로 한다. 클러스터를 만들 VPC와 거기에 속하는 Subnet을 정하고 SubnetID를 알아두자.
@@ -106,6 +110,13 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
     export INIT_ASSET_DIR_S3=S3-URL-FOR-INIT-ASSET
     export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-TO-STORE-NOTEBOOKS
+
+
+*큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자*
+
+    export NUM_CORE_INSTANCE=2  # 필요한 Core 노드 수
+    export CORE_EBS_SIZE=500    # 각 Core 노드의 EBS 볼륨 크기(GB)
+
 
 ## 사용
 
