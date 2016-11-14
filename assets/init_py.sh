@@ -37,6 +37,25 @@ cd ..
 rm -fr rar
 rm rarlinux-x64-5.4.0.tar.gz 
 
+# snappy & snzip
+sudo yum install -y libtool
+wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
+mkdir google-snappy
+tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
+cd  google-snappy
+./autogen.sh
+./configure --prefix=/usr
+make
+sudo make install
+cd
+wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.4.0.tar.gz
+tar xzvf snzip-1.4.0.tar.gz
+cd snzip-1.0.4/
+./configure
+make
+sudo make install
+sudo ldconfig
+
 cat << EOF > /home/hadoop/.vimrc
 syntax on
 set ic
