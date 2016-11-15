@@ -54,6 +54,9 @@ cd snzip-1.0.4/
 ./configure
 make
 sudo make install
+cd ..
+rm snzip-1.0.4.tar.gz
+rm -fr snzip-1.0.4.tar.gz
 sudo ldconfig
 
 cat << EOF > /home/hadoop/.vimrc
