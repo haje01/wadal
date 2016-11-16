@@ -296,8 +296,8 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 4. 프로파일에 다음과 같은 항목들을 추가한다.
 
     ```
-    EMR_TERM_ACCESS_KEY={IAM 유저의 Access Key}
-    EMR_TERM_SECRET_KEY={IAM 유저의 Secret Key}
+    export EMR_TERM_ACCESS_KEY={IAM 유저의 Access Key}
+    export EMR_TERM_SECRET_KEY={IAM 유저의 Secret Key}
     ```
 
 5. 클러스터가 준비된 후 다음과 같이 호출한다. 
