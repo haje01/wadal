@@ -272,6 +272,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 1. AWS IAM에서 EMR 제거를 위한 새 유저를 만든다. 이때 Access Key와 Secret Key를 잘 기록해둔다.
 
 2. 아래와 같이 EMR의 JobFlow 제거 권한이 있는 Policy를 만든다.
+
 	{
 		"Version": "2012-10-17",
 		"Statement": [
