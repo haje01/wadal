@@ -1,0 +1,23 @@
+if [[ $# -lt 1 ]] ; then
+    echo 'enter profile'
+    exit 0
+fi
+
+source profiles/$1
+
+if [ -z ${EMR_TERM_ACCESS_KEY+x} ];
+then
+    echo "need EMR_TERM_ACCESS_KEY in $1"
+fi
+if [ -z ${EMR_TERM_SECRET_KEY+x} ];
+then
+    echo "need EMR_TERM_SECRET_KEY in $1"
+fi
+
+cluster_id=`cat "clusters/$1_cluster.id"`
+
+cat << EOF > _termcmd
+aws emr terminate-clusters --cluster-ids $cluster_id
+EOF
+
+ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id $cluster_id --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "echo 'AWS_ACCESS_KEY_ID=$EMR_TERM_ACCESS_KEY AWS_SECRET_ACCESS_KEY=$EMR_TERM_SECRET_KEY aws emr terminate-clusters --cluster-ids $cluster_id --region=$AWS_REGION' > terminate_cluster && chmod +x cluster_terminate && sudo mv terminate_cluster /usr/bin"

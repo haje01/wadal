@@ -265,7 +265,48 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
     bin/terminate mypro
 
 
+### 클러스터 자동으로 제거하기 (고급)
+
+시간이 오래 걸리는 테스크 스크립트는 실행 후 클러스터 제거를 잊어먹는 경우가 많다. 다음과 같이 클러스터에서 테스크 스크립트의 실행이 끝난 후 자동으로 클러스터를 제거할 수 있다.
+
+1. AWS IAM에서 EMR 제거를 위한 새 유저를 만든다. 이때 Access Key와 Secret Key를 잘 기록해둔다.
+
+2. 아래와 같이 EMR의 JobFlow 제거 권한이 있는 Policy를 만든다.
+	{
+		"Version": "2012-10-17",
+		"Statement": [
+			{
+				"Sid": "Stmt1479263896000",
+				"Effect": "Allow",
+				"Action": [
+					"elasticmapreduce:TerminateJobFlows"
+				],
+				"Resource": [
+					"*"
+				]
+			}
+		]
+	}
+
+3. 1에서 만든 유저에 2에서 만든 Policy를 붙여준다.
+
+4. 프로파일에 다음과 같은 항목들을 추가한다.
+	EMR_TERM_ACCESS_KEY={IAM 유저의 Access Key}
+	EMR_TERM_SECRET_KEY={IAM 유저의 Secret Key}
+
+5. 클러스터가 준비된 후 다음과 같이 호출한다. 
+
+	bin/add_termcmd mypro
+
+6. Spark 스크립트 마지막에 `terminate_cluster`를 호출한다.
+
+이렇게 테스크 스크립트에서 클러스터를 제거하면, 클러스터를 원래 생성했던 `wadal` 아래 `clusters` 폴더에는 여전히 클러스터 정보가 남아있다. 나중에 명시적으로 제거하거나 `bin/terminate`를 호출해주자.
+
 ## 주의할 것
+
+### 제한된 권한의 IAM 유저를 사용하기
+
+AWS 리소스의 권한이 필요 이상으로 부여된 IAM 유저 키가 해킹 등으로 유출되면, 큰 금전적 피해를 입을 수도 있다. 반드시 제한된 권한의 IAM 유저를 만들어서 사용하도록 하자.
 
 ### Security Group 설정
 
