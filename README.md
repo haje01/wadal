@@ -273,6 +273,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 2. 아래와 같이 EMR의 JobFlow 제거 권한이 있는 Policy를 만든다.
 
+    ```
     {
         "Version": "2012-10-17",
         "Statement": [
@@ -288,17 +289,22 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
             }
         ]
     }
+    ```
 
 3. 1에서 만든 유저에 2에서 만든 Policy를 붙여준다.
 
 4. 프로파일에 다음과 같은 항목들을 추가한다.
 
+    ```
     EMR_TERM_ACCESS_KEY={IAM 유저의 Access Key}
     EMR_TERM_SECRET_KEY={IAM 유저의 Secret Key}
+    ```
 
 5. 클러스터가 준비된 후 다음과 같이 호출한다. 
 
+    ```
     bin/add_termcmd mypro
+    ```
 
 6. 테스크 스크립트 마지막에 `terminate_cluster`를 호출한다.
 
