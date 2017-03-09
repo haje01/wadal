@@ -27,6 +27,7 @@ cd s3fs-fuse-master
 ./configure
 make
 sudo make install
+cd
 
 # rar
 wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
@@ -43,20 +44,23 @@ wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
 mkdir google-snappy
 tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
 cd  google-snappy
+if [ ! -f README ]; then
+    cp README.md README
+fi
 ./autogen.sh
 ./configure --prefix=/usr
 make
 sudo make install
 cd
-wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.4.0.tar.gz
-tar xzvf snzip-1.4.0.tar.gz
+wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.0.4.tar.gz
+tar xzvf snzip-1.0.4.tar.gz
 cd snzip-1.0.4/
 ./configure
 make
 sudo make install
 cd ..
 rm snzip-1.0.4.tar.gz
-rm -fr snzip-1.0.4.tar.gz
+rm -fr snzip-1.0.4
 sudo ldconfig
 
 cat << EOF > /home/hadoop/.vimrc
