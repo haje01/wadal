@@ -4,3 +4,5 @@
 *.template
 *env
 assets/cp_assets.sh
+*.sublime-project
+*.sublime-workspace
