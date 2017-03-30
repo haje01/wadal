@@ -4,7 +4,7 @@ CORE_EBS_SIZE="${CORE_EBS_SIZE:-100}"
 # create cluster
 aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
     --release-label $AWS_EMR_LABEL \
-    --applications Name=Ganglia Name=Spark \
+    --applications Name=Ganglia Name=Spark Name=Zeppelin\
     --service-role EMR_DefaultRole \
     --instance-groups \
     InstanceGroupType=MASTER,InstanceType=$EC2_TYPE,InstanceCount=1 \
