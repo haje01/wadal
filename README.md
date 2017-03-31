@@ -5,7 +5,7 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Py
 - 다양한 셋팅의 EMR 클러스터를 사용할 수 있는 프로파일 기능
 - Jupyter 노트북 환경에서 PySpark을 사용
 - Zeppelin 노트북 환경에서 PySpark을 사용
-- RStudio(웹버전) 환경에서 SparkR을 사용
+- RStudio(웹버전) 환경에서 SparklyR을 사용
 - 분석 노트북을 지정한 S3 버킷에 동기
 
 *wadal은 bash shell의 명령어를 사용하기에 Mac OS나 Linux 기반에서 동작한다.*
@@ -37,6 +37,7 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 애셋(스크립트+�
     assets/run_rstudio.sh
     assets/cp_assets.sh
     assets/NanumGothic.ttf
+    ...
 
 이 애셋들을 올릴 S3 경로를 정해둔다. 예) `s3://my-bucket/wadal_assets`
 이 경로를 아래에서 설명할 프로파일 파일의 `INIT_ASSET_DIR_S3`로 설정하고, 애셋 올리기(`bin/upload_asset`)를 수행 하면 해당 경로가 만들어 지고 애셋 파일들이 올라간다.
@@ -111,17 +112,17 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export EC2_KEY_PAIR_NAME=EC2-KEY-PAIR-NAME
     export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
     export INIT_ASSET_DIR_S3=S3-URL-FOR-INIT-ASSET
-*분석 노트북을 S3에 저장하기 위해*
+    # 분석 노트북에 환경변수를 전달 (암호등에 이용하자)
+    export RUN_NOTEBOOK_ENVS=ENV-VARS-TO-RUN-NOTEBOOK
+    # 분석 노트북을 S3에 저장하기 위해
     export AWS_S3_ACCESS_KEY=AWS-S3-ACCESS-KEY-FOR-NOTEBOOK-SYNC
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
-*Jupyter를 이용하는 경우*
+    # Jupyter를 이용하는 경우
     export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-TO-STORE-NOTEBOOKS
-*Zeppelin을 이용하는 경우*
+    # Zeppelin을 이용하는 경우
     export ZEPPELIN_NOTEBOOK_S3_BUCKET=ZEPPELIN-NOTEBOOK-S3-BUCKET
     export ZEPPELIN_NOTEBOOK_S3_USER=ZEPPELIN-NOTEBOOK-S3-USER
-
-*큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자*
-
+    # 큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자
     export NUM_CORE_INSTANCE=2  # 필요한 Core 노드 수
     export CORE_EBS_SIZE=500    # 각 Core 노드의 EBS 볼륨 크기(GB)
 
@@ -178,7 +179,7 @@ Zeppelin은 AWS EMR에서 제공하는 것을 그대로 쓸 수 있다. 아래�
 
 웹브라우저를 띄워 생성된 클러스터의 RStudio에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
 
-RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실행해주면 SparkR을 사용하기 위한 초기화가 수행된다.
+RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실행해주면 SparklyR을 사용하기 위한 초기화가 수행된다.
 
 ### 클러스터 생성후 준비가 되면 동작하기
 
