@@ -1,0 +1,38 @@
+[
+    {
+        "Classification": "spark",
+        "Properties": {
+            "maximizeResourceAllocation":"true"
+        },
+        "Configurations": []
+    },
+
+    {
+        "Classification": "spark-env",
+        "Properties": {},
+        "Configurations": [
+            {
+                "Classification": "export",
+                "Properties": {
+                    "PYSPARK_PYTHON": "python3"
+                },
+                "Configurations": []
+            }
+        ]
+    },
+
+    {
+        "Classification": "zeppelin-env",
+        "Properties": {},
+        "Configurations": [
+            {
+                "Classification": "export",
+                "Properties": {
+                    "PYSPARK_PYTHON": "python3"
+                },
+                "Configurations": []
+            }
+        ]
+    }
+]
+

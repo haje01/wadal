@@ -13,3 +13,4 @@ aws s3 cp assets/run_jupyter.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
 aws s3 cp assets/run_rstudio.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
 aws s3 cp assets/cp_assets.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
 aws s3 cp assets/NanumGothic.ttf $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
+aws s3 cp assets/config_zeppelin.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
