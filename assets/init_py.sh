@@ -13,6 +13,7 @@ sudo pip-3.4 install seaborn
 sudo pip-3.4 install boto3
 sudo pip-3.4 install rarfile
 sudo pip-3.4 install pycrypto
+sudo pip-3.4 install bokeh
 sudo pip-3.4 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"

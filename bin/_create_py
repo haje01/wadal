@@ -9,7 +9,7 @@ aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
     --instance-groups \
     InstanceGroupType=MASTER,InstanceType=$EC2_TYPE,InstanceCount=1 \
     "InstanceGroupType=CORE,InstanceType=$EC2_TYPE,InstanceCount=$NUM_CORE_INSTANCE,EbsConfiguration={EbsOptimized=true,EbsBlockDeviceConfigs=[{VolumeSpecification={VolumeType=gp2,SizeInGB=$CORE_EBS_SIZE}}]}" \
-    InstanceGroupType=TASK,InstanceType=$EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE,BidPrice=$TASK_SPOT_BID_PRICE \
+    InstanceGroupType=TASK,InstanceType=$EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE$BidKeyVal \
     --configurations file://assets/emr_config.json \
     --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_ASSET_DIR_S3/init_py.sh \
     --ec2-attributes \

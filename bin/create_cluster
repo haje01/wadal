@@ -10,6 +10,13 @@ fi
 
 source profiles/$1
 
+if [ -z ${TASK_SPOT_BID_PRICE+x} ];
+then
+    BidKeyVal=""
+else
+    BidKeyVal=",BidPrice=$TASK_SPOT_BID_PRICE"
+fi
+
 case "$PLATFORM" in
 
 py) source bin/_create_py
