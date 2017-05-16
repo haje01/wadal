@@ -1,4 +1,6 @@
 sudo yum -y install git
+sudo yum -y install graphviz
+sudo yum -y install graphviz-devel
 
 # for pydata
 sudo pip-3.4 install jupyter
@@ -14,6 +16,10 @@ sudo pip-3.4 install boto3
 sudo pip-3.4 install rarfile
 sudo pip-3.4 install pycrypto
 sudo pip-3.4 install bokeh
+sudo pip-3.4 install sklearn
+sudo pip-3.4 install networkx
+sudo pip-3.4 install nxviz
+sudo pip-3.4 install pygraphviz
 sudo pip-3.4 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"

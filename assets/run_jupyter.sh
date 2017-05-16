@@ -13,6 +13,7 @@ sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/works"
 sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
 
 JUPYTER_NOTEBOOK_CONFIG=/home/hadoop/.jupyter/jupyter_notebook_config.py
+sudo sed -i -e '3a c.NotebookApp.iopub_data_rate_limit = 10000000' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.password = "sha1:8c1b53def426:12eefe9afd49d7345bfb71c4463aa61ca644ef4a"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.notebook_dir = "/home/hadoop/works"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.ip = "*"' $JUPYTER_NOTEBOOK_CONFIG
@@ -25,10 +26,12 @@ IPYTHON_STARTUP_SCRIPT=/home/hadoop/.ipython/profile_default/startup/init.py
 sudo su -l hadoop -c "ipython profile create"
 sudo sed -i -e '3a c.InteractiveShellApp.matplotlib = "inline"' $IPYTHON_KERNEL_CONFIG
 cat << EOF > $IPYTHON_STARTUP_SCRIPT
+import sys
+sys.path.append('/home/hadoop/works/')
+
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
-
 import matplotlib as mlp
 mlp.rcParams['font.family'] = u'NanumGothic'
 mlp.rcParams['font.size'] = 10
@@ -36,6 +39,8 @@ mlp.rcParams['font.size'] = 10
 # import seaborn as sns
 # sns.set_style('darkgrid', {'font.family': [u'NanumGothic']})
 from IPython.display import HTML
+
+import pandas as pd
 EOF
 
 
