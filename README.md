@@ -4,7 +4,6 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Py
 
 - 다양한 셋팅의 EMR 클러스터를 사용할 수 있는 프로파일 기능
 - Jupyter 노트북 환경에서 PySpark을 사용
-- Zeppelin 노트북 환경에서 PySpark을 사용
 - RStudio(웹버전) 환경에서 SparklyR을 사용
 - 분석 노트북을 지정한 S3 버킷에 동기
 
@@ -50,9 +49,6 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 ##### Jupyter 노트북을 사용하는 경우
 뒤에서 설명하겠지만 `NOTEBOOK_S3_BUCKET` 환경변수에 앞에서 만들어둔 버킷을 설정한다.  클러스터가 만들어지면 마스터 노드에 작업 폴더(`/home/hadoop/works`)가 생기고, Jupyter 노트북에서 작업한 내용은 이 폴더에 저장된다.  폴더에 저장된 내용은 **자동으로 이 S3 버킷에 동기**되어, 클러스터 제거 후 다시 생성하여도 작업 내용이 그대로 남아있게 된다.
-
-##### Zeppelin 노트북을 사용하는 경우
-Zeppelin은 자체적으로 노트북의 S3 저장을 지원한다. 이를 이용하기 위해 `ZEPPELIN_NOTEBOOK_S3_BUCKET`과 `ZEPPELIN_NOTEBOOK_S3_USER` 환경 변수를 설정해야 한다. 버킷은 앞에서 만들어둔 것을 입력하고, 유저는 노트북을 사용자를 구분하기 위한 것이다. 
 
 ### 사용할 정보 결정
 
@@ -105,9 +101,19 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export CLUSTER_NAME="YOUR-CLUSTER-NAME"
     export AWS_REGION=YOUR-AWS-REGION
     export AWS_EMR_LABEL=EMR-LABEL ex)emr-5.0.0
+    # 사용할 region의 subnet
     export AWS_EMR_SUBNET=EMR-VPC-SUBNET ex)subnet-a55xxxxx
-    export NUM_TASK_INSTANCE=3
-    export TASK_SPOT_BID_PRICE=TASK-SPOT-INSTANCE-BID-PRICE ex)0.06
+    # master 노드 인스턴스 타입
+    export MASTER_EC2_TYPE=MASTER-NODE-EC2-INSTNACE-TYPE  ex) m4.large
+    # core 노드 정보
+    export CORE_EC2_TYPE=CORE-NODE-EC2-INSTANCE-TYPE  ex) m4.xlarge
+    export CORE_EBS_SIZE=CORE-NODE-EBS-SIZE-IN-GB  ex) 100
+    export NUM_CORE_INSTANCE=CORE-NODE-INSTNACE-NUMBER  ex) 2
+    # task 노드 정보
+    export TASK_EC2_TYPE=TASK-NODE-EC2-INSTANCE-TYPE  ex) r3.xlarge
+    export NUM_TASK_INSTANCE=TASK-NODE-INSTANCE-NUMBER  ex) 3
+    export TASK_SPOT_BID_PRICE=TASK-SPOT-INSTANCE-BID-PRICE  ex)0.06
+    # master, core, task 공통으로 instance type 지정하는 경우
     export EC2_TYPE=EC2-INSTANCE-TYPE ex)m3.xlarge
     export EC2_KEY_PAIR_NAME=EC2-KEY-PAIR-NAME
     export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
@@ -119,9 +125,6 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
     # Jupyter를 이용하는 경우
     export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-TO-STORE-NOTEBOOKS
-    # Zeppelin을 이용하는 경우
-    export ZEPPELIN_NOTEBOOK_S3_BUCKET=ZEPPELIN-NOTEBOOK-S3-BUCKET
-    export ZEPPELIN_NOTEBOOK_S3_USER=ZEPPELIN-NOTEBOOK-S3-USER
     # 큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자
     export NUM_CORE_INSTANCE=2  # 필요한 Core 노드 수
     export CORE_EBS_SIZE=500    # 각 Core 노드의 EBS 볼륨 크기(GB)
@@ -161,17 +164,6 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 웹브라우저를 띄워 생성된 클러스터의 Jupyter 노트북에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
 
 만약 노트북 초기 페이지에서 암호를 물어보면 `wadal`을 입력하자.
-
-### Zeppelin 노트북 열기
-
-Zeppelin은 AWS EMR에서 제공하는 것을 그대로 쓸 수 있다. 아래의 명령으로
-
-    bin/zepplin mypro
-
-웹브라우저를 띄워 생성된 클러스터의 Zeppelin 노트북에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Zeppelin 용 포트를 열어주어야* 한다.
-
-만약 노트북 초기 페이지에서 암호를 물어보면 `wadal`을 입력하자.
-
 
 ### RStudio 열기
 
@@ -350,7 +342,6 @@ AWS 리소스의 권한이 필요 이상으로 부여된 IAM 유저 키가 해�
 
 - 기본적으로 SSH 포트(22)가 모든 대역에 대해 열려 있다. 이것을 필요한 IP 대역으로 제한하자.
 - Jupyter 노트북은 포트 8192, R Server는 8787로 열려있다. 기본 SG에는 이것이 빠져있기에, 접속이 필요한 IP 대역으로 열어주자
-- Zeppelin은 기본 포트가 8890이다. 이것을 열어주자.
 
 이 작업은 AWS 대쉬보드에서 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본 SG가 그대로 사용된다.
 

@@ -7,7 +7,7 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 sudo su -l hadoop -c "echo -e $1:$2 > ~/.passwd-s3fs"
 sudo su -l hadoop -c "chmod 600 ~/.passwd-s3fs"
 sudo su -l hadoop -c "mkdir ~/works"
-sudo su -l hadoop -c "/usr/local/bin/s3fs $3 /home/hadoop/works"
+sudo su -l hadoop -c "/usr/bin/s3fs $3 /home/hadoop/works"
 
 # Configure Jupyter
 sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
@@ -49,7 +49,7 @@ JUPYTER_PYSPARK_BIN=/home/hadoop/.jupyter/start-jupyter-pyspark.sh
 
 cat << EOF > $JUPYTER_PYSPARK_BIN
 export SPARK_HOME=/usr/lib/spark/
-export PYSPARK_PYTHON=/usr/bin/python3
+export PYSPARK_PYTHON=/usr/bin/python34
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
 set -a

@@ -2,6 +2,14 @@ sudo yum -y install git
 sudo yum -y install graphviz
 sudo yum -y install graphviz-devel
 
+# cmake
+wget http://www.cmake.org/files/v3.6/cmake-3.6.1.tar.gz
+tar -zxvf cmake-3.6.1.tar.gz
+cd cmake-3.6.1
+./bootstrap
+make
+sudo make install
+
 # for pydata
 sudo pip-3.4 install jupyter
 sudo pip-3.4 install numpy
@@ -20,19 +28,20 @@ sudo pip-3.4 install sklearn
 sudo pip-3.4 install networkx
 sudo pip-3.4 install nxviz
 sudo pip-3.4 install pygraphviz
+sudo pip-3.4 install pydotplus
 sudo pip-3.4 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 
 # for s3fs
-sudo yum install -y gcc gcc-c++
-sudo yum install -y automake
-sudo yum install -y fuse-devel curl-devel libxml2-devel openssl-devel
-wget https://github.com/s3fs-fuse/s3fs-fuse/archive/master.zip
-unzip master.zip
-cd s3fs-fuse-master
+sudo yum install -y gcc libstdc++-devel gcc-c++ fuse fuse-devel curl-devel libxml2-devel mailcap automake openssl-devel 
+sudo wget ftp://mirror.switch.ch/pool/4/mirror/epel/6/x86_64/Packages/j/jsoncpp-devel-0.10.5-2.el6.x86_64.rpm
+wget ftp://mirror.switch.ch/pool/4/mirror/epel/6/x86_64/Packages/j/jsoncpp-0.10.5-2.el6.x86_64.rpm
+sudo rpm -ivh *.rpm
+git clone https://github.com/s3fs-fuse/s3fs-fuse
+cd s3fs-fuse/
 ./autogen.sh
-./configure
+./configure --prefix=/usr --with-openssl
 make
 sudo make install
 cd
@@ -55,8 +64,9 @@ cd  google-snappy
 if [ ! -f README ]; then
     cp README.md README
 fi
-./autogen.sh
-./configure --prefix=/usr
+mkdir build
+cd build 
+/usr/local/bin/cmake -DBUILD_SHARED_LIBS=ON ../ 
 make
 sudo make install
 cd
@@ -105,10 +115,11 @@ EOF
 cat << EOF > tmpenv
 
 export SPARK_HOME=/usr/lib/spark/
-export PYSPARK_PYTHON=/usr/bin/python3
+export PYSPARK_PYTHON=/usr/bin/python34
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
+export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
 # export SPARK_PACKAGES=graphframes:graphframes:0.2.0-spark2.0-s_2.11
-alias python=python3
+alias python=python34
 EOF
 
 cat tmpenv >> /home/hadoop/.bash_profile

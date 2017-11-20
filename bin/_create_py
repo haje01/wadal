@@ -1,15 +1,19 @@
 NUM_CORE_INSTANCE="${NUM_CORE_INSTANCE:-1}"
 CORE_EBS_SIZE="${CORE_EBS_SIZE:-100}"
+EC2_TYPE="${EC2_TYPE:-m4.xlarge}"
+MASTER_EC2_TYPE="${MASTER_EC2_TYPE:-$EC2_TYPE}"
+CORE_EC2_TYPE="${CORE_EC2_TYPE:-$EC2_TYPE}"
+TASK_EC2_TYPE="${TASK_EC2_TYPE:-$EC2_TYPE}"
 
 # create cluster
 aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
     --release-label $AWS_EMR_LABEL \
-    --applications Name=Ganglia Name=Spark Name=Zeppelin\
+    --applications Name=Ganglia Name=Spark\
     --service-role EMR_DefaultRole \
     --instance-groups \
-    InstanceGroupType=MASTER,InstanceType=$EC2_TYPE,InstanceCount=1 \
-    "InstanceGroupType=CORE,InstanceType=$EC2_TYPE,InstanceCount=$NUM_CORE_INSTANCE,EbsConfiguration={EbsOptimized=true,EbsBlockDeviceConfigs=[{VolumeSpecification={VolumeType=gp2,SizeInGB=$CORE_EBS_SIZE}}]}" \
-    InstanceGroupType=TASK,InstanceType=$EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE$BidKeyVal \
+    InstanceGroupType=MASTER,InstanceType=$MASTER_EC2_TYPE,InstanceCount=1 \
+    "InstanceGroupType=CORE,InstanceType=$CORE_EC2_TYPE,InstanceCount=$NUM_CORE_INSTANCE,EbsConfiguration={EbsOptimized=true,EbsBlockDeviceConfigs=[{VolumeSpecification={VolumeType=gp2,SizeInGB=$CORE_EBS_SIZE}}]}" \
+    InstanceGroupType=TASK,InstanceType=$TASK_EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE$BidKeyVal \
     --configurations file://assets/emr_config.json \
     --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_ASSET_DIR_S3/init_py.sh \
     --ec2-attributes \
@@ -17,4 +21,4 @@ KeyName=$EC2_KEY_PAIR_NAME,\
 InstanceProfile=EMR_EC2_DefaultRole,\
 SubnetId=$AWS_EMR_SUBNET\
     --tags Name="$CLUSTER_NAME" Service="$SERVICE_TAG" Owner="$OWNER_TAG"\
-    --steps Type=CUSTOM_JAR,Name=CopyAssets,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_ASSET_DIR_S3/cp_assets.sh"] Type=CUSTOM_JAR,Name=RunJupyter,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_ASSET_DIR_S3/run_jupyter.sh","$AWS_S3_ACCESS_KEY","$AWS_S3_SECRET_KEY","$NOTEBOOK_S3_BUCKET","$RUN_NOTEBOOK_ENVS"] Type=CUSTOM_JAR,Name=ConfigZeppelin,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_ASSET_DIR_S3/config_zeppelin.sh","$ZEPPELIN_NOTEBOOK_S3_BUCKET","$ZEPPELIN_NOTEBOOK_S3_USER","$RUN_NOTEBOOK_ENVS"] | sed -n '/ClusterId/p' | cut -d':' -f2 | tr -d ' "' > "clusters/$1_cluster.id"
+    --steps Type=CUSTOM_JAR,Name=CopyAssets,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_ASSET_DIR_S3/cp_assets.sh"] Type=CUSTOM_JAR,Name=RunJupyter,ActionOnFailure=CANCEL_AND_WAIT,Jar=s3://$AWS_REGION.elasticmapreduce/libs/script-runner/script-runner.jar,Args=["$INIT_ASSET_DIR_S3/run_jupyter.sh","$AWS_S3_ACCESS_KEY","$AWS_S3_SECRET_KEY","$NOTEBOOK_S3_BUCKET","$RUN_NOTEBOOK_ENVS"] | sed -n '/ClusterId/p' | cut -d':' -f2 | tr -d ' "' > "clusters/$1_cluster.id"
