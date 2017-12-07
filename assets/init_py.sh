@@ -29,6 +29,9 @@ sudo pip-3.4 install networkx
 sudo pip-3.4 install nxviz
 sudo pip-3.4 install pygraphviz
 sudo pip-3.4 install pydotplus
+sudo pip-3.4 install tqdm
+sudo pip-3.4 install munch
+sudo pip-3.4 install jellyfish
 sudo pip-3.4 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
