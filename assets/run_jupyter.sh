@@ -55,8 +55,6 @@ export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
 set -a
 eval "$4"
 set +a
-# export SPARK_PACKAGES=graphframes:graphframes:0.2.0-spark2.0-s_2.11
-# nohup pyspark --packages $SPARK_PACKAGES > $JUPYTER_LOG 2>&1 &
 nohup pyspark > $JUPYTER_LOG 2>&1 &
 EOF
 
