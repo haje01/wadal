@@ -4,8 +4,9 @@ sudo yum -y install graphviz-devel
 
 # python3.5
 sudo yum -y install python35 python35-pip python35-devel
-sudo pip-3.5 install -U pip
-sudo sed -i 's/6.1.1/9.0.1/' /usr/bin/pip-3.5
+# sudo pip-3.5 install -U pip
+sudo sed -i -e '/secure_path/ s[=.*[&:/usr/local/bin[' /etc/sudoers
+# sudo sed -i 's/6.1.1/9.0.1/' /usr/bin/pip-3.5
 
 # cmake
 wget http://www.cmake.org/files/v3.6/cmake-3.6.1.tar.gz
@@ -37,6 +38,7 @@ sudo pip-3.5 install pydotplus
 sudo pip-3.5 install munch
 sudo pip-3.5 install jellyfish
 sudo pip-3.5 install xgboost
+sudo pip-3.5 install s3fs
 sudo pip-3.5 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
