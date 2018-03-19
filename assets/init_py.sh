@@ -2,11 +2,9 @@ sudo yum -y install git
 sudo yum -y install graphviz
 sudo yum -y install graphviz-devel
 
-# python3.5
-sudo yum -y install python35 python35-pip python35-devel
-# sudo pip-3.5 install -U pip
-sudo sed -i -e '/secure_path/ s[=.*[&:/usr/local/bin[' /etc/sudoers
-# sudo sed -i 's/6.1.1/9.0.1/' /usr/bin/pip-3.5
+# python3.6
+sudo yum -y install python36 python36-pip python36-devel
+# sudo sed -i -e '/secure_path/ s[=.*[&:/usr/local/bin[' /etc/sudoers
 
 # cmake
 wget http://www.cmake.org/files/v3.6/cmake-3.6.1.tar.gz
@@ -17,33 +15,33 @@ make
 sudo make install
 
 # for pydata
-sudo pip-3.5 install jupyter
-sudo pip-3.5 install numpy
-sudo pip-3.5 install matplotlib
-sudo pip-3.5 install cython
-sudo pip-3.5 install pandas
-sudo pip-3.5 install runipy
-sudo pip-3.5 install plotly
-sudo pip-3.5 install cufflinks
-sudo pip-3.5 install seaborn
-sudo pip-3.5 install boto3
-sudo pip-3.5 install rarfile
-sudo pip-3.5 install pycrypto
-sudo pip-3.5 install bokeh
-sudo pip-3.5 install sklearn
-sudo pip-3.5 install networkx
-sudo pip-3.5 install nxviz
-sudo pip-3.5 install pygraphviz
-sudo pip-3.5 install pydotplus
-sudo pip-3.5 install munch
-sudo pip-3.5 install jellyfish
-sudo pip-3.5 install xgboost
-sudo pip-3.5 install s3fs
-sudo pip-3.5 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+sudo pip-3.6 install jupyter
+sudo pip-3.6 install numpy
+sudo pip-3.6 install matplotlib
+sudo pip-3.6 install cython
+sudo pip-3.6 install pandas
+sudo pip-3.6 install runipy
+sudo pip-3.6 install plotly
+sudo pip-3.6 install cufflinks
+sudo pip-3.6 install seaborn
+sudo pip-3.6 install boto3
+sudo pip-3.6 install rarfile
+sudo pip-3.6 install pycrypto
+sudo pip-3.6 install bokeh
+sudo pip-3.6 install sklearn
+sudo pip-3.6 install networkx
+sudo pip-3.6 install nxviz
+sudo pip-3.6 install pygraphviz
+sudo pip-3.6 install pydotplus
+sudo pip-3.6 install munch
+sudo pip-3.6 install jellyfish
+sudo pip-3.6 install xgboost
+sudo pip-3.6 install s3fs
+sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
-sudo pip-3.5 install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl 
-sudo pip-3.5 install torchvision
+sudo pip-3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
+sudo pip-3.6 install torchvision
 
 
 # for s3fs
@@ -128,12 +126,12 @@ EOF
 cat << EOF > tmpenv
 
 export SPARK_HOME=/usr/lib/spark/
-export PYSPARK_PYTHON=/usr/bin/python35
+export PYSPARK_PYTHON=/usr/bin/python36
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
 # export SPARK_PACKAGES=graphframes:graphframes:0.2.0-spark2.0-s_2.11
-alias python=python35
-alias pip=pip-3.5
+alias python=python36
+alias pip=pip-3.6
 EOF
 
 cat tmpenv >> /home/hadoop/.bash_profile
