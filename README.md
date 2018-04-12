@@ -210,6 +210,13 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
     works/mynote.html
 
+
+### Sublime Text 에디트로 원격 파일 편집하기
+
+다음과 같이 EMR 클러스터의 파일을 로컬 Sublime Text 에디트로 편집할 수 있다. (단 Security Group 설정에서 52698포트가 열려있어야 하고, 로컬에 Sublime Text를 띄워둔 상태여야 한다.)
+
+    rsub path/to/file.txt
+
 ### 특정 Python 스크립트 실행
 
 작업된 파이썬 스크립트 파일(.py)을 다음과 같이 커맨드 라인에서 실행할 수 있다.
