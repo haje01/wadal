@@ -37,12 +37,18 @@ sudo pip-3.6 install munch
 sudo pip-3.6 install jellyfish
 sudo pip-3.6 install xgboost
 sudo pip-3.6 install s3fs
+sudo pip-3.6 install xlrd
 sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo pip-3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
 sudo pip-3.6 install torchvision
 
+# dateglob
+git clone https://github.com/Yelp/dateglob.git
+cd dateglob/
+sudo pip-3.6 install -e .
+cd
 
 # for s3fs
 sudo yum install -y gcc libstdc++-devel gcc-c++ fuse fuse-devel curl-devel libxml2-devel mailcap automake openssl-devel 
