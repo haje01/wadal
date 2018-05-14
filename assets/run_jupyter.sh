@@ -21,6 +21,14 @@ sudo sed -i -e '3a c.NotebookApp.open_browser = False' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.port = 8192' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c = get_config()' $JUPYTER_NOTEBOOK_CONFIG
 
+sudo su -l hadoop -c "mkdir -p ~/.jupyter/custom"
+cat << EOF > ~/.jupyter/custom/custom.css
+.CodeMirror pre, .CodeMirror-dialog, .CodeMirror-dialog .CodeMirror-search-field, .terminal-app .terminal {
+    font-family: monospace;
+    font-size: 13pt;
+}
+EOF
+
 IPYTHON_KERNEL_CONFIG=/home/hadoop/.ipython/profile_default/ipython_kernel_config.py
 IPYTHON_STARTUP_SCRIPT=/home/hadoop/.ipython/profile_default/startup/init.py
 sudo su -l hadoop -c "ipython profile create"
