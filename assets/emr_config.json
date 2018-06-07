@@ -1,8 +1,16 @@
 [
     {
+        "Classification": "spark-defaults",
+        "Properties": {
+            "maximizeResourceAllocation": "true",
+            "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": "2"
+        }
+    },
+
+    {
         "Classification": "spark",
         "Properties": {
-            "maximizeResourceAllocation": true,
+            "maximizeResourceAllocation": "true",
             "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": "2"
         }
     },
