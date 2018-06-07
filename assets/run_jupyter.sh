@@ -23,9 +23,9 @@ sudo sed -i -e '3a c = get_config()' $JUPYTER_NOTEBOOK_CONFIG
 
 sudo su -l hadoop -c "mkdir -p ~/.jupyter/custom"
 cat << EOF > ~/.jupyter/custom/custom.css
-.CodeMirror pre, .CodeMirror-dialog, .CodeMirror-dialog .CodeMirror-search-field, .terminal-app .terminal {
-    font-family: monospace;
-    font-size: 13pt;
+.CodeMirror pre, .output pre, .CodeMirror-dialog, .CodeMirror-dialog .CodeMirror-search-field, .terminal-app .terminal {
+    font-family: courier !important;
+    font-size: 11pt;
 }
 EOF
 

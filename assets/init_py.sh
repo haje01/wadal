@@ -13,6 +13,7 @@ cd cmake-3.6.1
 ./bootstrap
 make
 sudo make install
+cd
 
 # for pydata
 sudo pip-3.6 install jupyter
@@ -43,6 +44,17 @@ sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo pip-3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
 sudo pip-3.6 install torchvision
+sudo pip-3.6 install geoip2
+sudo pip-3.6 install tensorboardX
+
+# GeoIP2
+wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
+mkdir -p geoip/city
+tar xzvf GeoLite2-City.tar.gz -C geoip/city --strip-components=1
+wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz
+mkdir -p geoip/country
+tar xzvf GeoLite2-Country.tar.gz -C geoip/country/ --strip-components=1
+cd
 
 # dateglob
 git clone https://github.com/Yelp/dateglob.git
