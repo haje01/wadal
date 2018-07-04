@@ -41,6 +41,11 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 애셋(스크립트+�
 이 애셋들을 올릴 S3 경로를 정해둔다. 예) `s3://my-bucket/wadal_assets`
 이 경로를 아래에서 설명할 프로파일 파일의 `INIT_ASSET_DIR_S3`로 설정하고, 애셋 올리기(`bin/upload_asset`)를 수행 하면 해당 경로가 만들어 지고 애셋 파일들이 올라간다.
 
+#### EMR 초기화 로그를 올릴 S3 경로
+
+EMR 클러스터 초기화시에 이런 저런 문제가 발생할 수 있는데, 이때 로그가 있으면 편리하다.
+로그를 올린 S3 경로를 정하여 프로파일 파일의 `EMR_LOG_DIR_S3`에 설정하면, 클러스터 초기화에 발생하는 로그를 살펴볼 수 있다.
+
 #### 분석 노트북 용 S3 버킷과 키
 
 EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘 S3 버킷을 하나 생성한다. 예) `s3://my-notebooks`
@@ -117,7 +122,8 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export EC2_TYPE=EC2-INSTANCE-TYPE ex)m3.xlarge
     export EC2_KEY_PAIR_NAME=EC2-KEY-PAIR-NAME
     export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
-    export INIT_ASSET_DIR_S3=S3-URL-FOR-INIT-ASSET
+    export INIT_ASSET_DIR_S3=S3-URI-FOR-INIT-ASSET
+    export EMR_LOG_DIR_S3=S3-URI-FOR-EMR-LOG
     # 분석 노트북에 환경변수를 전달 (암호등에 이용하자)
     export RUN_NOTEBOOK_ENVS=ENV-VARS-TO-RUN-NOTEBOOK
     # 분석 노트북을 S3에 저장하기 위해
