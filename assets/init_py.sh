@@ -84,31 +84,32 @@ cd ..
 rm -fr rar
 rm rarlinux-x64-5.4.0.tar.gz 
 
-# snappy & snzip
-sudo yum install -y libtool
-wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
-mkdir google-snappy
-tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
-cd  google-snappy
-if [ ! -f README ]; then
-    cp README.md README
-fi
-mkdir build
-cd build 
-/usr/local/bin/cmake -DBUILD_SHARED_LIBS=ON ../ 
-make
-sudo make install
-cd
-wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.0.4.tar.gz
-tar xzvf snzip-1.0.4.tar.gz
-cd snzip-1.0.4/
-./configure
-make
-sudo make install
-cd ..
-rm snzip-1.0.4.tar.gz
-rm -fr snzip-1.0.4
-sudo ldconfig
+# bintray 접속이 안됨..
+# snappy & snzip 
+#sudo yum install -y libtool
+#wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
+#mkdir google-snappy
+#tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
+#cd  google-snappy
+#if [ ! -f README ]; then
+    #cp README.md README
+#fi
+#mkdir build
+#cd build 
+#/usr/local/bin/cmake -DBUILD_SHARED_LIBS=ON ../ 
+#make
+#sudo make install
+#cd
+#wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.0.4.tar.gz
+#tar xzvf snzip-1.0.4.tar.gz
+#cd snzip-1.0.4/
+#./configure
+#make
+#sudo make install
+#cd ..
+#rm snzip-1.0.4.tar.gz
+#rm -fr snzip-1.0.4
+#sudo ldconfig
 
 # rsub
 cd
