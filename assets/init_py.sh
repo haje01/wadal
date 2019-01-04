@@ -4,6 +4,7 @@ sudo yum -y install graphviz-devel
 
 # python3.6
 sudo yum -y install python36 python36-pip python36-devel
+sudo yum -y install tkinter tcl-devel tk-devel
 # sudo sed -i -e '/secure_path/ s[=.*[&:/usr/local/bin[' /etc/sudoers
 
 # cmake
@@ -37,6 +38,7 @@ sudo pip-3.6 install pydotplus
 sudo pip-3.6 install munch
 sudo pip-3.6 install jellyfish
 sudo pip-3.6 install xgboost
+sudo pip-3.6 install auto_ml
 sudo pip-3.6 install s3fs
 sudo pip-3.6 install xlrd
 sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
@@ -46,6 +48,10 @@ sudo pip-3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-
 sudo pip-3.6 install torchvision
 sudo pip-3.6 install geoip2
 sudo pip-3.6 install tensorboardX
+sudo pip-3.6 install scikit-plot
+cat << EOF > /home/hadoop/.config/matplotlib/matplotlibrc
+backend : agg
+EOF
 
 # GeoIP2
 wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
@@ -84,32 +90,31 @@ cd ..
 rm -fr rar
 rm rarlinux-x64-5.4.0.tar.gz 
 
-# bintray 접속이 안됨..
 # snappy & snzip 
-#sudo yum install -y libtool
-#wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
-#mkdir google-snappy
-#tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
-#cd  google-snappy
-#if [ ! -f README ]; then
-    #cp README.md README
-#fi
-#mkdir build
-#cd build 
-#/usr/local/bin/cmake -DBUILD_SHARED_LIBS=ON ../ 
-#make
-#sudo make install
-#cd
-#wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.0.4.tar.gz
-#tar xzvf snzip-1.0.4.tar.gz
-#cd snzip-1.0.4/
-#./configure
-#make
-#sudo make install
-#cd ..
-#rm snzip-1.0.4.tar.gz
-#rm -fr snzip-1.0.4
-#sudo ldconfig
+sudo yum install -y libtool
+wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
+mkdir google-snappy
+tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
+cd  google-snappy
+if [ ! -f README ]; then
+    cp README.md README
+fi
+mkdir build
+cd build 
+/usr/local/bin/cmake -DBUILD_SHARED_LIBS=ON ../ 
+make
+sudo make install
+cd
+wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.0.4.tar.gz
+tar xzvf snzip-1.0.4.tar.gz
+cd snzip-1.0.4/
+./configure
+make
+sudo make install
+cd ..
+rm snzip-1.0.4.tar.gz
+rm -fr snzip-1.0.4
+sudo ldconfig
 
 # rsub
 cd
@@ -151,9 +156,8 @@ cat << EOF > tmpenv
 
 export SPARK_HOME=/usr/lib/spark/
 export PYSPARK_PYTHON=/usr/bin/python36
-export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
+export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
-# export SPARK_PACKAGES=graphframes:graphframes:0.2.0-spark2.0-s_2.11
 alias python=python36
 alias pip=pip-3.6
 EOF
