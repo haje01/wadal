@@ -4,7 +4,7 @@ EC2_TYPE="${EC2_TYPE:-m4.xlarge}"
 MASTER_EC2_TYPE="${MASTER_EC2_TYPE:-$EC2_TYPE}"
 CORE_EC2_TYPE="${CORE_EC2_TYPE:-$EC2_TYPE}"
 TASK_EC2_TYPE="${TASK_EC2_TYPE:-$EC2_TYPE}"
-BOOTSTRAP_SCRIPT="${BOOTSTRAP_SCRIPT:-init_py.sh}"
+BOOTSTRAP_SCRIPT="${BOOTSTRAP_SCRIPT:-boot_eda.sh}"
 
 # create cluster
 aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
@@ -17,7 +17,7 @@ aws emr create-cluster --name "$CLUSTER_NAME" --region $AWS_REGION \
     "InstanceGroupType=CORE,InstanceType=$CORE_EC2_TYPE,InstanceCount=$NUM_CORE_INSTANCE,EbsConfiguration={EbsOptimized=true,EbsBlockDeviceConfigs=[{VolumeSpecification={VolumeType=gp2,SizeInGB=$CORE_EBS_SIZE}}]}" \
     InstanceGroupType=TASK,InstanceType=$TASK_EC2_TYPE,InstanceCount=$NUM_TASK_INSTANCE$BidKeyVal \
     --configurations file://./assets/emr_config.json \
-    --bootstrap-actions Name=Init_for_Wadal,Path=$INIT_ASSET_DIR_S3/$BOOTSTRAP_SCRIPT \
+    --bootstrap-actions Name=Wadal_Bootstrap,Path=$INIT_ASSET_DIR_S3/$BOOTSTRAP_SCRIPT \
     --ec2-attributes \
 KeyName=$EC2_KEY_PAIR_NAME,\
 InstanceProfile=EMR_EC2_DefaultRole,\
