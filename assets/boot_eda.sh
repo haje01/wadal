@@ -3,7 +3,7 @@ sudo yum -y install graphviz
 sudo yum -y install graphviz-devel
 
 # python3.6
-sudo yum -y install python36 python36-pip python36-devel
+sudo yum -y install python36-devel
 sudo yum -y install tkinter tcl-devel tk-devel
 # sudo sed -i -e '/secure_path/ s[=.*[&:/usr/local/bin[' /etc/sudoers
 
@@ -18,7 +18,6 @@ cd
 
 # for pydata
 sudo pip-3.6 install jupyter
-sudo pip-3.6 install numpy
 sudo pip-3.6 install matplotlib
 sudo pip-3.6 install cython
 sudo pip-3.6 install pandas

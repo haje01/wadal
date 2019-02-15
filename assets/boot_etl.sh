@@ -2,11 +2,6 @@ sudo yum -y install git
 
 sudo yum -y install python36 python36-pip python36-devel
 sudo pip-3.6 install jupyter
-sudo pip-3.6 install numpy
-sudo pip-3.6 install matplotlib
-sudo pip-3.6 install cython
-sudo pip-3.6 install pandas
-sudo pip-3.6 install runipy
 sudo pip-3.6 install boto3
 sudo pip-3.6 install pycrypto
 sudo pip-3.6 install s3fs
