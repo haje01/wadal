@@ -1,19 +1,6 @@
 sudo yum -y install git
 
-# python3.6
 sudo yum -y install python36 python36-pip python36-devel
-sudo yum -y install tkinter tcl-devel tk-devel
-
-# cmake
-wget http://www.cmake.org/files/v3.6/cmake-3.6.1.tar.gz
-tar -zxvf cmake-3.6.1.tar.gz
-cd cmake-3.6.1
-./bootstrap
-make
-sudo make install
-cd
-
-# for pydata
 sudo pip-3.6 install jupyter
 sudo pip-3.6 install numpy
 sudo pip-3.6 install matplotlib
@@ -21,7 +8,6 @@ sudo pip-3.6 install cython
 sudo pip-3.6 install pandas
 sudo pip-3.6 install runipy
 sudo pip-3.6 install boto3
-sudo pip-3.6 install rarfile
 sudo pip-3.6 install pycrypto
 sudo pip-3.6 install s3fs
 sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
@@ -40,41 +26,6 @@ cd s3fs-fuse/
 make
 sudo make install
 cd
-
-# rar
-wget http://www.rarlab.com/rar/rarlinux-x64-5.4.0.tar.gz
-tar xzvf rarlinux-x64-5.4.0.tar.gz
-cd rar
-sudo cp rar unrar /usr/bin
-cd ..
-rm -fr rar
-rm rarlinux-x64-5.4.0.tar.gz 
-
-# snappy & snzip 
-sudo yum install -y libtool
-wget https://github.com/google/snappy/tarball/master -O snappy.tar.gz
-mkdir google-snappy
-tar xzvf snappy.tar.gz -C google-snappy --strip-components=1
-cd  google-snappy
-if [ ! -f README ]; then
-    cp README.md README
-fi
-mkdir build
-cd build 
-/usr/local/bin/cmake -DBUILD_SHARED_LIBS=ON ../ 
-make
-sudo make install
-cd
-wget https://bintray.com/kubo/generic/download_file?file_path=snzip-1.0.4.tar.gz -O snzip-1.0.4.tar.gz
-tar xzvf snzip-1.0.4.tar.gz
-cd snzip-1.0.4/
-./configure
-make
-sudo make install
-cd ..
-rm snzip-1.0.4.tar.gz
-rm -fr snzip-1.0.4
-sudo ldconfig
 
 # rsub
 cd
