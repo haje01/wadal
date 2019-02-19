@@ -15,6 +15,9 @@ fi
 source profiles/$1
 nbpath=$2
 htmlpath="${nbpath/.ipynb/.html}"
+echo "nbpath: $nbpath"
 echo "htmlpath: $htmlpath"
 
-ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert \"works/$nbpath\" --execute --ExecutePreprocessor.startup_timeout=600 --ExecutePreprocessor.timeout=-1 --to $format $templ' $ENVS pyspark" && scp -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",'):"'works/$htmlpath'" downloads/
+set -x
+
+ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert \"works/$nbpath\" --execute --ExecutePreprocessor.startup_timeout=600 --ExecutePreprocessor.timeout=-1 --to $format $templ' $ENVS pyspark" && scp -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",'):"works/$htmlpath" downloads/
