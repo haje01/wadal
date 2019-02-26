@@ -89,6 +89,29 @@ Core 노드는 HDFS 스토리지를 가지는 워커노드이다. 기본은 1대
 
 Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타입, 리전, Subnet이 속한 AZ) 등)에서의 시세를 알아두자. 시세보다 약간 높은 가격으로 프로파일에 기입한다. 
 
+### 부트스트랩 스크립트 
+
+부트스트랩(bootstrap) 스크립트는 EMR의 부트스트랩 과정에서 수행되어, 패키지 설치나 환경 설정등의 작업을 한다. 기본으로 제공하는 아래의 두 스크립트 중 하나를 선택할 수 있고, 
+
+    assets/boot_eda.sh  # ETL 및 EDA를 위한 다양한 패키지를 설치 (시간이 오래 걸림)
+    assets/boot_etl.sh  # ETL을 위한 최소한의 패키지를 설치 (시간이 조금 걸림)
+
+스스로 bash 쉘 스크립트 형식으로 부트스트랩 스크립트를 작성해, `프로파일` 의 `BOOTSTRAP_SCRIPT` 에 명시할 수 있다.
+
+```bash
+    sudo yum -y install python36 python36-pip python36-devel
+    sudo pip-3.6 install jupyter
+    sudo pip-3.6 install boto3
+
+    cat << EOF > /home/hadoop/.vimrc
+    syntax on
+    set tabstop=4
+    set shiftwidth=4
+    EOF
+```
+
+명시하지 않으면 기본 부트스트랩 스크립트인 `assets/boot_eda.sh`를 이용하게 된다.
+
 ## 프로파일 만들기
 
 1. `profile.template`을 복사해 용도에 맞는 이름으로 `profiles/`아래에 넣음
@@ -101,6 +124,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 
 앞에서 준비해둔 정보로 각 변수의 값을 채워 넣는다.
 
+```bash
     export PLATFORM=YOUR-PLATFORM ex) py or r
     export CLUSTER_NAME="YOUR-CLUSTER-NAME"
     export AWS_REGION=YOUR-AWS-REGION
@@ -133,7 +157,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     # 큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자
     export NUM_CORE_INSTANCE=2  # 필요한 Core 노드 수
     export CORE_EBS_SIZE=500    # 각 Core 노드의 EBS 볼륨 크기(GB)
-
+```
 
 ## 사용
 
