@@ -1,23 +1,17 @@
-if [[ $# -lt 3 ]] ; then
-    echo 'enter profile, notebook path, format(html, htmlr(for report))'
+if [[ $# -lt 2 ]] ; then
+    echo 'enter profile, notebook path, (optional parameters: -p KEY VAL -p KEY VAL ...)'
     exit 0
-fi
-
-if [ $3 = 'htmlr' ]; then
-    format='html'
-    templ='--template=report.tpl'
-else
-    format=$3
-    templ=''
 fi
 
 
 source profiles/$1
 nbpath=$2
-htmlpath="${nbpath/.ipynb/.html}"
+outpath="${nbpath/.ipynb/.out.ipynb}"
+parameters="${@:3}"
 echo "nbpath: $nbpath"
-echo "htmlpath: $htmlpath"
+echo "outpath: $outpath"
+echo "parameters: $parameters"
 
 set -x
 
-ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter PYSPARK_DRIVER_PYTHON_OPTS='nbconvert \"works/$nbpath\" --execute --ExecutePreprocessor.startup_timeout=600 --ExecutePreprocessor.timeout=-1 --to $format $templ' $ENVS pyspark" && scp -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",'):"works/$htmlpath" downloads/
+ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/papermill PYSPARK_DRIVER_PYTHON_OPTS='\"works/$nbpath\" \"works/$outpath\" $parameters' $ENVS pyspark"
