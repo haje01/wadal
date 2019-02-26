@@ -213,7 +213,11 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 ### Sublime Text 에디트로 원격 파일 편집하기
 
-다음과 같이 EMR 클러스터의 파일을 로컬 Sublime Text 에디트로 편집할 수 있다. (단 Security Group 설정에서 52698포트가 열려있어야 하고, 로컬에 Sublime Text를 띄워둔 상태여야 한다.)
+먼저 아래의 명령어로 EMR 마스터 노드에 접속한 뒤
+
+    bin/rsub myproj
+
+다음과 같은 명령으로 마스터 노드의 파일을 로컬 Sublime Text 에디트로 편집할 수 있다. (단 Security Group 설정에서 52698포트가 열려있어야 하고, 로컬에 Sublime Text를 띄워둔 상태여야 한다.)
 
     rsub path/to/file.txt
 
