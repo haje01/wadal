@@ -203,7 +203,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
     bin/run_notebook myproj mynote.ipynb
 
-만약 노트북의 특정 변수를 바꿔서 실행하고 싶으면 아래와 같이 한다.
+만약 노트북의 특정 변수를 바꿔서 실행하고 싶으면 아래와 같이 한다. 미리 변수를 선언한 노트북 셀에 `parameters` 태그 설정이 필요한데, 자세한 것은 [papermill 도큐먼트](https://papermill.readthedocs.io/en/latest/)를 참고하자.
 
     bin/run_notebook myproj mynote.ipynb -p key1 val1 -p key2 val2
 
