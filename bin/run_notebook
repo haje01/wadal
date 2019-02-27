@@ -7,7 +7,6 @@ fi
 source profiles/$1
 nbpath=$2
 outpath="${nbpath/.ipynb/.out.ipynb}"
-outpath=`basename $outpath`
 basedir=`dirname "$nbpath"`
 parameters="${@:3}"
 echo "nbpath: $nbpath"
@@ -17,4 +16,4 @@ echo "parameters: $parameters"
 
 set -x
 
-ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/papermill PYSPARK_DRIVER_PYTHON_OPTS='--cwd \"works/$basedir\" \"works/$nbpath\" \"$outpath\" $parameters' $ENVS pyspark"
+ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/papermill PYSPARK_DRIVER_PYTHON_OPTS='--start_timeout 1200 --cwd \"works/$basedir\" \"works/$nbpath\" \"works/$outpath\" $parameters' $ENVS pyspark"
