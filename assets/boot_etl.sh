@@ -1,6 +1,7 @@
 sudo yum -y install git
 
 sudo yum -y install python36 python36-pip python36-devel
+sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
 sudo pip-3.6 install jupyter
 sudo pip-3.6 install boto3
 sudo pip-3.6 install pycrypto

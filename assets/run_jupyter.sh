@@ -60,7 +60,7 @@ JUPYTER_PYSPARK_BIN=/home/hadoop/.jupyter/start-jupyter-pyspark.sh
 cat << EOF > $JUPYTER_PYSPARK_BIN
 export SPARK_HOME=/usr/lib/spark/
 export PYSPARK_PYTHON=/usr/bin/python36
-export PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython3
+export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
 set -a
 eval "$4"
