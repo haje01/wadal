@@ -26,10 +26,9 @@ make
 sudo make install
 cd
 
-# rsub
-cd
-sudo wget -O /usr/local/bin/rsub \https://raw.github.com/aurora/rmate/master/rmate
-sudo chmod a+x /usr/local/bin/rsub
+# rmate
+sudo wget -O /usr/local/bin/rmate \https://raw.github.com/aurora/rmate/master/rmate
+sudo chmod a+x /usr/local/bin/rmate
 
 cat << EOF > /home/hadoop/.vimrc
 syntax on
