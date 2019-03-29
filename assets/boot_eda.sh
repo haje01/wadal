@@ -123,6 +123,11 @@ cd
 sudo wget -O /usr/local/bin/rsub \https://raw.github.com/aurora/rmate/master/rmate
 sudo chmod a+x /usr/local/bin/rsub
 
+# rmate
+wget https://raw.githubusercontent.com/sclukey/rmate-python/master/bin/rmate
+chmod +x ./rmate
+mv ./rmate /usr/local/bin/rmate
+
 cat << EOF > /home/hadoop/.vimrc
 syntax on
 set ic
