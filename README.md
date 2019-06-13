@@ -28,7 +28,7 @@ wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 Py
 
 #### EMR 관련 애셋을 올릴 S3 경로
 
-EMR 클러스터 초기화 및 이용에 다음과 같은 애셋(스크립트+바이너리)가 필요하다. 
+EMR 클러스터 초기화 및 이용에 다음과 같은 애셋(스크립트+바이너리)가 필요하다.
 
     assets/init_py.sh
     assets/init_r.sh
@@ -53,7 +53,7 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 
 ##### Jupyter 노트북을 사용하는 경우
-뒤에서 설명하겠지만 `NOTEBOOK_S3_BUCKET` 환경변수에 앞에서 만들어둔 버킷을 설정한다.  클러스터가 만들어지면 마스터 노드에 작업 폴더(`/home/hadoop/works`)가 생기고, Jupyter 노트북에서 작업한 내용은 이 폴더에 저장된다.  폴더에 저장된 내용은 **자동으로 이 S3 버킷에 동기**되어, 클러스터 제거 후 다시 생성하여도 작업 내용이 그대로 남아있게 된다.
+뒤에서 설명하겠지만 `GIT_REPO`환경변수에 노트북 및 관련 코드를 저장하는 git 저장소 정보를 설정한다. 클러스터가 만들어지면 마스터 노드에 작업 폴더(`/home/hadoop/works`)가 생기고, 그 아래에 git에서 clone한 코드가 놓이게 된다.
 
 ### 사용할 정보 결정
 
@@ -87,11 +87,11 @@ Core 노드는 HDFS 스토리지를 가지는 워커노드이다. 기본은 1대
 
 #### Spot Instance 가격 파악
 
-Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타입, 리전, Subnet이 속한 AZ) 등)에서의 시세를 알아두자. 시세보다 약간 높은 가격으로 프로파일에 기입한다. 
+Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타입, 리전, Subnet이 속한 AZ) 등)에서의 시세를 알아두자. 시세보다 약간 높은 가격으로 프로파일에 기입한다.
 
-### 부트스트랩 스크립트 
+### 부트스트랩 스크립트
 
-부트스트랩(bootstrap) 스크립트는 EMR의 부트스트랩 과정에서 수행되어, 패키지 설치나 환경 설정등의 작업을 한다. 기본으로 제공하는 아래의 두 스크립트 중 하나를 선택할 수 있고, 
+부트스트랩(bootstrap) 스크립트는 EMR의 부트스트랩 과정에서 수행되어, 패키지 설치나 환경 설정등의 작업을 한다. 기본으로 제공하는 아래의 두 스크립트 중 하나를 선택할 수 있고,
 
     assets/boot_eda.sh  # ETL 및 EDA를 위한 다양한 패키지를 설치 (시간이 오래 걸림)
     assets/boot_etl.sh  # ETL을 위한 최소한의 패키지를 설치 (시간이 조금 걸림)
@@ -147,13 +147,12 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
     export INIT_ASSET_DIR_S3=S3-URI-FOR-INIT-ASSET
     export EMR_LOG_DIR_S3=S3-URI-FOR-EMR-LOG
+    # 분석 코드 git 정보
+    export GIT_REPO=GIT-REPO  # https:// 로 시작하는 git 저장소 URL
+    export GIT_USER=GIT-USER  # 저장소 유저명
+    export GIT_PASS=GIT-PASS  # 저장소 암호
     # 분석 노트북에 환경변수를 전달 (암호등에 이용하자)
     export RUN_NOTEBOOK_ENVS=ENV-VARS-TO-RUN-NOTEBOOK
-    # 분석 노트북을 S3에 저장하기 위해
-    export AWS_S3_ACCESS_KEY=AWS-S3-ACCESS-KEY-FOR-NOTEBOOK-SYNC
-    export AWS_S3_SECRET_KEY=AWS-S3-SECRET-KEY-FOR-NOTEBOOK-SYNC
-    # Jupyter를 이용하는 경우
-    export NOTEBOOK_S3_BUCKET=YOUR-S3-BUCKET-TO-STORE-NOTEBOOKS
     # 큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자
     export NUM_CORE_INSTANCE=2  # 필요한 Core 노드 수
     export CORE_EBS_SIZE=500    # 각 Core 노드의 EBS 볼륨 크기(GB)
@@ -353,7 +352,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
     export EMR_TERM_SECRET_KEY={IAM 유저의 Secret Key}
     ```
 
-5. 클러스터가 준비된 후 다음과 같이 호출한다. 
+5. 클러스터가 준비된 후 다음과 같이 호출한다.
 
     ```
     bin/add_termcmd mypro
