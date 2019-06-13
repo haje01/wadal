@@ -1,6 +1,11 @@
 sudo yum -y install git
 sudo yum -y install graphviz
 sudo yum -y install graphviz-devel
+# install node
+sudo yum install -y curl-devel
+sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash"
+sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
+sudo su -l hadoop -c "nvm install 9.0"
 
 # python3.6
 sudo yum -y install python36-devel
@@ -46,6 +51,8 @@ sudo pip-3.6 install papermill
 sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
+sudo chown -hR hadoop /usr/local/share/jupyter/lab
+sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
 sudo pip-3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
 sudo pip-3.6 install torchvision
 sudo pip-3.6 install geoip2

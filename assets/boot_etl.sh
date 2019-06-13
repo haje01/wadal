@@ -1,8 +1,14 @@
 sudo yum -y install git
+# install node
+sudo yum install -y curl-devel
+sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash"
+sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
+sudo su -l hadoop -c "nvm install 9.0"
 
 sudo yum -y install python36 python36-pip python36-devel
 sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
 sudo pip-3.6 install jupyter
+sudo pip-3.6 install jupyterlab
 sudo pip-3.6 install boto3
 sudo pip-3.6 install pycrypto
 sudo pip-3.6 install s3fs
@@ -12,9 +18,11 @@ sudo pip-3.6 install papermill
 sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
+sudo chown -hR hadoop /usr/local/share/jupyter/lab
+sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
 
 # for s3fs
-sudo yum install -y gcc libstdc++-devel gcc-c++ fuse fuse-devel curl-devel libxml2-devel mailcap automake openssl-devel 
+sudo yum install -y gcc libstdc++-devel gcc-c++ fuse fuse-devel libxml2-devel mailcap automake openssl-devel 
 sudo wget ftp://mirror.switch.ch/pool/4/mirror/epel/6/x86_64/Packages/j/jsoncpp-devel-0.10.5-2.el6.x86_64.rpm
 wget ftp://mirror.switch.ch/pool/4/mirror/epel/6/x86_64/Packages/j/jsoncpp-0.10.5-2.el6.x86_64.rpm
 sudo rpm -ivh *.rpm

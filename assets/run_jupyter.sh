@@ -6,9 +6,10 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 # Configure s3fs
 sudo su -l hadoop -c "mkdir ~/works"
 if [ "$1" = "NA" ]; then
-    sudo su -l hadoop -c "echo ${4/\/\//\/\/$5:$6@} > ~/git_clone"
+    # using git for notebook storage
     sudo su -l hadoop -c "cd ~/works && git clone ${4/\/\//\/\/$5:$6@} > /tmp/git-clone.log 2>&1"
 else
+    # using s3 for notebook storage
     sudo su -l hadoop -c "echo -e $1:$2 > ~/.passwd-s3fs"
     sudo su -l hadoop -c "chmod 600 ~/.passwd-s3fs"
     sudo su -l hadoop -c "/usr/bin/s3fs $3 /home/hadoop/works"
@@ -66,7 +67,7 @@ cat << EOF > $JUPYTER_PYSPARK_BIN
 export SPARK_HOME=/usr/lib/spark/
 export PYSPARK_PYTHON=/usr/bin/python36
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
-export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
+export PYSPARK_DRIVER_PYTHON_OPTS='lab'
 set -a
 eval "$7"
 set +a
