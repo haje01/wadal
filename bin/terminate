@@ -1,9 +1,15 @@
-if [[ $# -lt 1 ]] ; then
-    echo 'enter profile'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-source profiles/$1
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
 
-aws emr terminate-clusters --cluster-ids `cat "clusters/$1_cluster.id"` --region=$AWS_REGION
-rm clusters/$1_cluster.id
+source profiles/$PROF
+
+aws emr terminate-clusters --cluster-ids `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION
+rm clusters/${PROF}_cluster.id

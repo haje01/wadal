@@ -22,7 +22,7 @@ sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
 JUPYTER_NOTEBOOK_CONFIG=/home/hadoop/.jupyter/jupyter_notebook_config.py
 sudo sed -i -e '3a c.NotebookApp.iopub_data_rate_limit = 10000000' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.password = "sha1:8c1b53def426:12eefe9afd49d7345bfb71c4463aa61ca644ef4a"' $JUPYTER_NOTEBOOK_CONFIG
-sudo sed -i -e '3a c.NotebookApp.notebook_dir = "/home/hadoop/works/$WORK_DIR"' $JUPYTER_NOTEBOOK_CONFIG
+sudo sed -i -e '3a c.NotebookApp.notebook_dir = "/home/hadoop/works/'$WORK_DIR'"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.allow_remote_access = True' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.allow_origin = "*"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.ip = "*"' $JUPYTER_NOTEBOOK_CONFIG
