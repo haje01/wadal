@@ -52,8 +52,8 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 그리고 노트북용 버킷에 읽기/쓰기가 가능한 IAM 계정을 준비하여, 정보를 프로파일의 `AWS_S3_ACCESS_KEY`와 `AWS_S3_SECRET_KEY`로 설정한다. 이 키는 클러스터에 저장되기에, 가급적 **S3 권한만 있는 별도 IAM 계정**을 만들어 사용할 것을 권한다.
 
 
-##### Jupyter 노트북을 사용하는 경우
-뒤에서 설명하겠지만 `GIT_REPO`환경변수에 노트북 및 관련 코드를 저장하는 git 저장소 정보를 설정한다. 클러스터가 만들어지면 마스터 노드에 작업 폴더(`/home/hadoop/works`)가 생기고, 그 아래에 git에서 clone한 코드가 놓이게 된다.
+##### Git 저장소
+노트북 또는 코드를 관리하기 위해 Git 저장소가 필요하다. github 등의 서비스에서 저장소를 만들고 관련 정보를 확인해 두자. git 저장소의 URL, 유저 이름, 암호, 유저 정보가 필요하다. 이 정보를 설정파일에 설정하면, 클러스터가 마스터 노드에 작업 폴더(`/home/hadoop/works`)가 생기고, 그 아래에 git에서 clone한 코드가 놓이게 된다.
 
 ### 사용할 정보 결정
 
@@ -151,6 +151,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export GIT_REPO=GIT-REPO  # https:// 로 시작하는 git 저장소 URL
     export GIT_USER=GIT-USER  # 저장소 유저명
     export GIT_PASS=GIT-PASS  # 저장소 암호
+    export GIT_MAIL=GIT-MAIL  # git config에 필요한 메일주소
     # 분석 노트북에 환경변수를 전달 (암호등에 이용하자)
     export RUN_NOTEBOOK_ENVS=ENV-VARS-TO-RUN-NOTEBOOK
     # 큰 HDFS 용량이 필요한 경우는 아래의 변수도 활용하자

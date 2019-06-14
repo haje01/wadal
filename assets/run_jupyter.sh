@@ -9,6 +9,8 @@ if [ "$1" = "NA" ]; then
     # using git for notebook storage
     sudo su -l hadoop -c "cd ~/works && git clone ${4/\/\//\/\/$5:$6@} > /tmp/git-clone.log 2>&1"
     WORK_DIR=$(basename $4)
+    git config --global user.email "$7"
+    git config --global user.name "$5"
 else
     # using s3 for notebook storage
     sudo su -l hadoop -c "echo -e $1:$2 > ~/.passwd-s3fs"
@@ -70,7 +72,7 @@ export PYSPARK_PYTHON=/usr/bin/python36
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='lab'
 set -a
-eval "$7"
+eval "$8"
 set +a
 nohup pyspark > $JUPYTER_LOG 2>&1 &
 EOF
