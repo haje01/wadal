@@ -1,16 +1,22 @@
-if [[ $# -lt 1 ]] ; then
-    echo 'enter profile'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-source profiles/$1
+if [ -z ${WADAL_PROF} ]; then 
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
 
-state="$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",')"
+source profiles/$PROF
+
+state="$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",')"
 
 while [ "$state" == "STARTING" ] || [ "$state" == "BOOTSTRAPPING" ]
 do
     sleep 10
-    state="$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",')"
+    state="$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",')"
 done
 
 sleep 25

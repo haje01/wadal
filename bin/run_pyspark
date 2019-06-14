@@ -1,11 +1,17 @@
-if [[ $# -lt 2 ]] ; then
-    echo 'enter profile, SCRIPT name'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
 
-source profiles/$1
+source profiles/$PROF
+
 script_path=$2
 
-time ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/
+time ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "SPARK_HOME=/usr/lib/spark/
 PYSPARK_PYTHON=/usr/bin/python3 $ENVS spark-submit works/$script_path"

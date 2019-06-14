@@ -1,21 +1,27 @@
-if [[ $# -lt 1 ]] ; then
-    echo 'enter profile'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-if [ -f "clusters/$1_cluster.id" ]; then
-    echo "cluster '$1' already exists"
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
+
+if [ -f "clusters/${PROF}_cluster.id" ]; then
+    echo "cluster '$PROF' already exists"
     exit 0
 fi
 
-source profiles/$1
+source profiles/$PROF
 
 if [ -z ${TASK_SPOT_BID_PRICE+x} ];
 then
     BidKeyVal=""
-else
+ else
     BidKeyVal=",BidPrice=$TASK_SPOT_BID_PRICE"
-fi
+ fi
 
 case "$PLATFORM" in
 

@@ -1,8 +1,14 @@
-if [[ $# -lt 1 ]] ; then
-    echo 'enter profile'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-source profiles/$1
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
 
-ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')
+source profiles/$PROF
+
+ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')

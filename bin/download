@@ -1,8 +1,14 @@
-if [[ $# -lt 2 ]] ; then
-    echo 'enter profile, src'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-source profiles/$1
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
 
-scp -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",'):"'works/$2'" downloads/
+source profiles/$PROF
+
+scp -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",'):"'works/$2'" downloads/
