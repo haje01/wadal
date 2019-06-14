@@ -317,6 +317,8 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
     bin/terminate mypro
 
+만약 git을 사용하는 경우 commit 되지 않은 파일이나 push 되지 않은 커밋이 있다면, 클러스터 종료 전 경고를 하게 된다.
+
 
 ### 클러스터 자동으로 제거하기 (고급)
 
