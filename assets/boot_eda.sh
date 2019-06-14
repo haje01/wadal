@@ -24,6 +24,7 @@ cd
 # for pydata
 sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
 sudo pip-3.6 install jupyter
+sudo pip-3.6 install jupyterlab
 sudo pip-3.6 install matplotlib
 sudo pip-3.6 install cython
 sudo pip-3.6 install pandas
