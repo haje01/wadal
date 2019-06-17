@@ -22,16 +22,24 @@ CLUSTER=`cat "clusters/${PROF}_cluster.id"`
 
 function terminate() {
     echo "Cluster $CLUSTER terminated."
-   aws emr terminate-clusters --cluster-ids $CLUSTER --region=$AWS_REGION
-   rm clusters/${PROF}_cluster.id
+    aws emr terminate-clusters --cluster-ids $CLUSTER --region=$AWS_REGION
+    rm clusters/${PROF}_cluster.id
 }
 
 uncmt=$(ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id $CLUSTER --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "$TEST_COMMIT")
-uncmt=$(echo "$uncmt" | tr -d '\n')
-uncmt_cnt=$(echo $uncmt | wc -l)
+if [ -z "$uncmt" ]; then
+    uncmt_cnt=0
+else
+    uncmt_cnt=$(echo $uncmt | wc -l)
+fi
+
 unpush=$(ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id $CLUSTER --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "$TEST_PUSH")
-unpush=$(echo "$unpush" | tr -d '\n')
-unpush_cnt=$(echo $unpush | wc -l)
+if [ -z "$unpush" ]; then
+    unpush_cnt=0
+else
+    unpush_cnt=$(echo $unpush | wc -l)
+fi
+
 if [ $uncmt_cnt -gt 0 ] || [ $unpush_cnt -gt 0 ]; then
     echo "There are $uncmt_cnt uncommitted file(s) and $unpush_cnt unpushed commit(s)!!"
     if [ $uncmt_cnt -gt 0 ]; then
