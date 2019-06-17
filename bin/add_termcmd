@@ -1,9 +1,15 @@
-if [[ $# -lt 1 ]] ; then
-    echo 'enter profile'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-source profiles/$1
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
+
+source profiles/$PROF
 
 if [ -z ${EMR_TERM_ACCESS_KEY+x} ];
 then

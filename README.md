@@ -116,9 +116,9 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 
 1. `profile.template`을 복사해 용도에 맞는 이름으로 `profiles/`아래에 넣음
 
-        cp profile.template profiles/mypro
+        cp profile.template profiles/myprof
 
-    앞으로 이 파일 `mypro`을 **프로파일 명** 으로 한다.
+    앞으로 이 파일 `myprof`을 **프로파일 명** 으로 한다.
 
 2. 에디터로 파일을 편집
 
@@ -161,20 +161,26 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 
 ## 사용
 
-만들어둔 프로파일 이름을 인자로 하여, 아래와 같은 다양한 명령을 수행한다.
+앞에서 만들어둔 프로파일 이름을 아래와 같은 두 가지 방법으로 사용할 수 있다:
+1. 미리 환경 변수(`WADAL_PROF`)로 export 해두기
+2. 매 명령의 첫 번째 인자로 건네기
 
+2 번 방식은 매 명령의 첫 인자로 프로파일 이름은 지정해야 하기에 여러 명령을 수행할 때는 1 번 방법을 추천한다. 아래와 같이 한 번 호출해두면 편리하다.
+```
+export WADAL_PROF=myprof
+```
 
 ### 애셋 올리기
 
 EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은 *Region 당 한번만 수행*하면 된다.
 
-    bin/upload_assets mypro
+    bin/upload_assets
 
 ### 클러스터 생성
 
 클러스터는 다음과 같이 생성한다.
 
-    bin/create_cluster mypro
+    bin/create_cluster
 
 생성된 클러스터의 ID는 `wadal` 아래 `clusters` 폴더에 저장되기에, 다음과 같이 현재 생성된 클러스터를 확인할 수 있다.
 
@@ -182,13 +188,13 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 
 ### 클러스터 상태 확인
 
-    bin/state mypro
+    bin/state
 
 클러스터 상태는 `STARTING`, `BOOTSTRAPPING`, `RUNNING`, `WAITING` 으로 나뉘어 진다. `RUNNING` 이나 `WAITING` 상태면 클러스터를 사용할 수 있다.
 
 ### Jupyter 노트북 열기
 
-    bin/jupyter mypro
+    bin/jupyter
 
 웹브라우저를 띄워 생성된 클러스터의 Jupyter 노트북에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
 
@@ -196,7 +202,7 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 
 ### RStudio 열기
 
-    bin/rstudio mypro
+    bin/rstudio
 
 웹브라우저를 띄워 생성된 클러스터의 RStudio에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
 
@@ -206,14 +212,14 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 클러스터 생성에는 시간이 꽤 걸린다. 어떤 명령을 내리기 위해 계속 보고 있기가 지루하다. `wait_ready`는 클러스터가 가용한 상태가 될 때까지 기다려 주기에, 다른 명령과 조합해서 사용하면 편리하다.
 
-    bin/create_cluster myproj && bin/wait_ready myproj && bin/jupyter myproj
+    bin/create_cluster && bin/wait_ready && bin/jupyter
 
 위의 명령은 클러스터 생성 후 준비가 되면 Jupyter 노트북을 열어준다.
 
 
 ### 하둡 마스터 노드에 SSH 접속
 
-    bin/ssh mypro
+    bin/ssh
 
 ### 특정 노트북 실행
 
@@ -225,38 +231,38 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 다음과 같이 커맨드 라인에서 실행할 수 있다.
 
-    bin/run_notebook myproj mynote.ipynb
+    bin/run_notebook mynote.ipynb
 
 만약 노트북의 특정 변수를 바꿔서 실행하고 싶으면 아래와 같이 한다. 미리 변수를 선언한 노트북 셀에 `parameters` 태그 설정이 필요한데, 자세한 것은 [papermill 도큐먼트](https://papermill.readthedocs.io/en/latest/)를 참고하자.
 
-    bin/run_notebook myproj mynote.ipynb -p key1 val1 -p key2 val2
+    bin/run_notebook mynote.ipynb -p key1 val1 -p key2 val2
 
 실행 결과는 노트북 파일명 + `.out.ipynb` 형식으로 저장된다.
 
     works/mynote.out.ipynb
 
-### Sublime Text 에디트로 원격 파일 편집하기
+### VS Code나 Sublime Text 에디트로 원격 파일 편집하기
 
 먼저 아래의 명령어로 EMR 마스터 노드에 접속한 뒤
 
-    bin/rsub myproj
+    bin/rmate
 
 다음과 같은 명령으로 마스터 노드의 파일을 로컬 Sublime Text 에디트로 편집할 수 있다. (단 Security Group 설정에서 52698포트가 열려있어야 하고, 로컬에 Sublime Text를 띄워둔 상태여야 한다.)
 
-    rsub path/to/file.txt
+    rmate path/to/file.txt
 
 ### 특정 Python 스크립트 실행
 
 작업된 파이썬 스크립트 파일(.py)을 다음과 같이 커맨드 라인에서 실행할 수 있다.
 
-    bin/run_pyspark myproj mycode.py
+    bin/run_pyspark mycode.py
 
 
 ### 환경 변수 건네기
 
 노트북이나 파이썬 스크립트를 실행할 때, 환경변수를 건넬 수 있으면 편리하다. 아래와 같이 `ENVS` 변수를 통해 할 수 있다.
 
-    ENVS="SRC=/data/mydata.csv DATE=20161010" bin/run_notebook myproj mynote.ipynb htmlr
+    ENVS="SRC=/data/mydata.csv DATE=20161010" bin/run_notebook mynote.ipynb htmlr
 
 위에서는 `SRC`와 `DATE` 변수가 노트북 또는 파이썬 스크립트에 환경변수로 건네진다. 다음과 같이 얻어낼 수 있겠다.
 
@@ -268,7 +274,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 로컬 파일을 작업 폴더로 올릴 수 있다. 예를 들어,
 
-    bin/upload mypro README.md
+    bin/upload README.md
 
 와 같이 하면 작업 폴더에
 
@@ -284,7 +290,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 파일이 있다면,
 
-    bin/download mypro README.md
+    bin/download README.md
 
 와 같이 하면 작업 폴더에 있는 파일을 현재 폴더로 내려 받는다.
 
@@ -297,7 +303,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 파일이 있다면,
 
-    bin/move mypro README.md
+    bin/move README.md
 
 와 같이 하면 작업 폴더에 있는 파일을 현재 폴더로 내려 받은 후, 작업 폴더의 원본 파일은 지워진다.
 
@@ -306,16 +312,16 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
 다음과 같이 작업 폴더에 있는 파일들을 볼 수 있다.
 
-    bin/ls mypro
+    bin/ls
 
 `ls`의 옵션을 지정할 수도 있다.
 
-    bin/ls mypro -al
+    bin/ls -al
 
 
-### EMR 클러스터 제거
+### EMR 클러스터 종료
 
-    bin/terminate mypro
+    bin/terminate
 
 만약 git을 사용하는 경우 commit 되지 않은 파일이나 push 되지 않은 커밋이 있다면, 클러스터 종료 전 경고를 하게 된다.
 
@@ -358,7 +364,7 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 5. 클러스터가 준비된 후 다음과 같이 호출한다.
 
     ```
-    bin/add_termcmd mypro
+    bin/add_termcmd
     ```
 
     이렇게 하면 클러스터 master 노드의 `/usr/bin` 아래에 클러스터를 제거할 수 있는 `terminate_cluster` 명령이 추가된다.

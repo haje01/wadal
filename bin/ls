@@ -1,21 +1,43 @@
-if [[ $# -lt 1 ]] ; then
-    echo 'enter profile, [ls option] [subdir]'
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
     exit 0
 fi
 
-if [ -z "$2" ]
-then
-    lsopt=""
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+
+    if [ -z "$2" ]
+    then
+        lsopt=""
+    else
+        lsopt=$2
+    fi
+
+    if [ -z "$3" ]
+    then
+        subdir=""
+    else
+        subdir=$3
+    fi
 else
-    lsopt=$2
+    PROF=${WADAL_PROF}
+
+    if [ -z "$1" ]
+    then
+        lsopt=""
+    else
+        lsopt=$1
+    fi
+
+    if [ -z "$2" ]
+    then
+        subdir=""
+    else
+        subdir=$2
+    fi
 fi
 
-if [ -z "$3" ]
-then
-    subdir=""
-else
-    subdir=$3
-fi
+source profiles/$PROF
 
 source profiles/$1
 

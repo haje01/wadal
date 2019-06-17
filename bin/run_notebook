@@ -11,6 +11,7 @@ fi
 
 source profiles/$PROF
 
+
 nbpath=$2
 outpath="${nbpath/.ipynb/.out.ipynb}"
 basedir=`dirname "$nbpath"`
