@@ -22,8 +22,8 @@ CLUSTER=`cat "clusters/${PROF}_cluster.id"`
 
 function terminate() {
     echo "Cluster $CLUSTER terminated."
-#    aws emr terminate-clusters --cluster-ids $CLUSTER --region=$AWS_REGION
-#    rm clusters/${PROF}_cluster.id
+   aws emr terminate-clusters --cluster-ids $CLUSTER --region=$AWS_REGION
+   rm clusters/${PROF}_cluster.id
 }
 
 uncmt=$(ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id $CLUSTER --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "$TEST_COMMIT")
