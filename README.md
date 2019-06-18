@@ -3,9 +3,8 @@
 wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 PySpark 또는 SparkR 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
 
 - 다양한 셋팅의 EMR 클러스터를 사용할 수 있는 프로파일 기능
-- Jupyter 노트북 환경에서 PySpark을 사용
-- RStudio(웹버전) 환경에서 SparklyR을 사용
-- 분석 노트북을 지정한 S3 버킷에 동기
+- Jupyter 노트북 환경에서 EMR의 PySpark을 사용
+- 분석 노트북을 지정한 git 저장소에서 가져옴
 
 *wadal은 bash shell의 명령어를 사용하기에 Mac OS나 Linux 기반에서 동작한다.*
 
@@ -33,7 +32,6 @@ EMR 클러스터 초기화 및 이용에 다음과 같은 애셋(스크립트+�
     assets/init_py.sh
     assets/init_r.sh
     assets/run_jupyter.sh
-    assets/run_rstudio.sh
     assets/cp_assets.sh
     assets/NanumGothic.ttf
     ...
@@ -200,14 +198,6 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 
 만약 노트북 초기 페이지에서 암호를 물어보면 `wadal`을 입력하자.
 
-### RStudio 열기
-
-    bin/rstudio
-
-웹브라우저를 띄워 생성된 클러스터의 RStudio에 접속한다. 처음 클러스터를 생성했으면 아래 Security Group 설정을 참고해서 *Jupyter 노트북 용 포트를 열어주어야* 한다.
-
-RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실행해주면 SparklyR을 사용하기 위한 초기화가 수행된다.
-
 ### 클러스터 생성후 준비가 되면 동작하기
 
 클러스터 생성에는 시간이 꽤 걸린다. 어떤 명령을 내리기 위해 계속 보고 있기가 지루하다. `wait_ready`는 클러스터가 가용한 상태가 될 때까지 기다려 주기에, 다른 명령과 조합해서 사용하면 편리하다.
@@ -323,7 +313,22 @@ RStudio에 접속 후 오른쪽 기본 폴더에 보이는 `initSpark.R`을 실�
 
     bin/terminate
 
-만약 git을 사용하는 경우 commit 되지 않은 파일이나 push 되지 않은 커밋이 있다면, 클러스터 종료 전 경고를 하게 된다.
+만약 git을 사용하는 경우 commit 되지 않은 파일이나 push 되지 않은 커밋이 있다면, 클러스터 종료 전 아래처럼 경고를 한다.
+
+    Jeongui-MacBook-Pro:wadal haje01$ bin/terminate
+    There are        1 uncommitted file(s) and        1 unpushed commit(s)!!
+
+    Uncommitted file(s)
+    -------------------
+    M muo2/gp/etl.ipynb
+
+    Unpushed commit(s)
+    -------------------
+    + 97c378a961216683ae76bc6c8b914567b1a45665 test
+
+    Are you sure to terminate (y/n)?
+
+만약 배치 작업 등에서 체크하지 않고 종료해야 할 때는 `bin/terminate_force`를 사용한다.
 
 
 ### 클러스터 자동으로 제거하기 (고급)

@@ -55,7 +55,7 @@ if [ $uncmt_cnt -gt 0 ] || [ $unpush_cnt -gt 0 ]; then
         echo "$unpush"
     fi
     echo ""
-    read -p "Are you sure to terminate? " -n 1 -r
+    read -p "Are you sure to terminate? (y/n)" -n 1 -r
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         terminate
