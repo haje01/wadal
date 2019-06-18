@@ -51,7 +51,13 @@ EMR 클러스터는 사용 후 제거되기에, 분석 노트북을 저장해둘
 
 
 ##### Git 저장소
-노트북 또는 코드를 관리하기 위해 Git 저장소가 필요하다. github 등의 서비스에서 저장소를 만들고 관련 정보를 확인해 두자. git 저장소의 URL, 유저 이름, 암호, 유저 정보가 필요하다. 이 정보를 설정파일에 설정하면, 클러스터가 마스터 노드에 작업 폴더(`/home/hadoop/works`)가 생기고, 그 아래에 git에서 clone한 코드가 놓이게 된다.
+노트북 또는 코드를 관리하기 위해 git 저장소가 필요하다. github 등의 서비스에서 저장소를 만들고 관련 정보를 확인해 두자. git 저장소의 URL, 유저 이름, 암호, 유저 정보가 필요하다. 이 정보를 설정파일에 설정하면, 클러스터가 마스터 노드에 작업 폴더(`/home/hadoop/works`)를 만들고, 그 아래에 git에서 clone한 코드가 놓이게 된다.
+
+예를 들어 저장소 이름이 `myrepo` 라면
+
+    /home/hadoop/works/myrepo
+
+아래에 코드가 생성된다.
 
 ### 사용할 정보 결정
 
@@ -217,19 +223,19 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 
 예를 들어 아래와 같은 노트북이 있다면,
 
-    works/mynote.ipynb
+    works/myrepo/mynote.ipynb
 
 다음과 같이 커맨드 라인에서 실행할 수 있다.
 
-    bin/run_notebook mynote.ipynb
+    bin/run_notebook myrepo/mynote.ipynb
 
 만약 노트북의 특정 변수를 바꿔서 실행하고 싶으면 아래와 같이 한다. 미리 변수를 선언한 노트북 셀에 `parameters` 태그 설정이 필요한데, 자세한 것은 [papermill 도큐먼트](https://papermill.readthedocs.io/en/latest/)를 참고하자.
 
-    bin/run_notebook mynote.ipynb -p key1 val1 -p key2 val2
+    bin/run_notebook myrepo/mynote.ipynb -p key1 val1 -p key2 val2
 
 실행 결과는 노트북 파일명 + `.out.ipynb` 형식으로 저장된다.
 
-    works/mynote.out.ipynb
+    works/myrepo/mynote.out.ipynb
 
 ### VS Code나 Sublime Text 에디트로 원격 파일 편집하기
 
@@ -311,11 +317,12 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 
 ### EMR 클러스터 종료
 
+아래와 같이 생성한 클러스터를 종료할 수 있다.
+
     bin/terminate
 
-만약 git을 사용하는 경우 commit 되지 않은 파일이나 push 되지 않은 커밋이 있다면, 클러스터 종료 전 아래처럼 경고를 한다.
+새로 생성되었지만 git 에 add 되지 않은 파일은 무시되기에 주의하자. add 되었으나 commit 되지 않은 파일이나 push 되지 않은 커밋이 있다면, 클러스터 종료 전 아래처럼 경고를 한다.
 
-    Jeongui-MacBook-Pro:wadal haje01$ bin/terminate
     There are        1 uncommitted file(s) and        1 unpushed commit(s)!!
 
     Uncommitted file(s)
@@ -328,7 +335,7 @@ EMR 클러스터 초기화에 필요한 애셋을 업로드한다. 이 과정은
 
     Are you sure to terminate (y/n)?
 
-만약 배치 작업 등에서 체크하지 않고 종료해야 할 때는 `bin/terminate_force`를 사용한다.
+만약 배치 작업 등에서 경고를 무시하고 종료해야 할 때는 `bin/terminate_force`를 사용한다.
 
 
 ### 클러스터 자동으로 제거하기 (고급)
