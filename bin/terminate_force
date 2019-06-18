@@ -1,0 +1,25 @@
+if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
+    echo 'enter profile or specify WADAL_PROF envvar'
+    exit 0
+fi
+
+if [ -z ${WADAL_PROF} ]; then
+    PROF=$1
+else
+    PROF=${WADAL_PROF}
+fi
+
+source profiles/$PROF
+
+if [ ! -z $GIT_REPO ]; then
+    DIR="$(basename $GIT_REPO)"
+    GIT_PATH="/home/hadoop/works/$DIR"
+    TEST_COMMIT="cd $GIT_PATH; git status --porcelain | grep '^ M.*'"
+    TEST_PUSH="cd $GIT_PATH; git cherry -v"
+fi
+
+CLUSTER=`cat "clusters/${PROF}_cluster.id"`
+
+echo "Cluster $CLUSTER terminated."
+aws emr terminate-clusters --cluster-ids $CLUSTER --region=$AWS_REGION
+rm clusters/${PROF}_cluster.id
