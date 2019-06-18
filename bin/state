@@ -12,4 +12,4 @@ fi
 source profiles/$PROF
 
 
-aws emr describe-cluster --cluster-id `cat "clusters/$1_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",'
+aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",'
