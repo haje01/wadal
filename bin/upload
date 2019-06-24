@@ -5,11 +5,17 @@ fi
 
 if [ -z ${WADAL_PROF} ]; then
     PROF=$1
+    src=$2
+    dst=$3
 else
     PROF=${WADAL_PROF}
+    src=$1
+    dst=$2
 fi
 
 source profiles/$PROF
-
+if [ -z $dst ]; then
+    dst=$(basename $src)
+fi
 
 scp -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" "$src" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",'):"'works/$dst'"
