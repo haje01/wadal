@@ -3,7 +3,7 @@ sudo yum -y install git
 sudo yum install -y curl-devel
 sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash"
 sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
-sudo su -l hadoop -c "nvm install 9.0"
+sudo su -l hadoop -c "nvm install 10.0"
 
 sudo yum -y install python36 python36-pip python36-devel
 sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem

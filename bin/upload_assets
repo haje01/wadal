@@ -15,8 +15,6 @@ sed 's#{INIT_ASSET_DIR_S3}#'"$INIT_ASSET_DIR_S3"'#g; s#{AWS_REGION}#'"$AWS_REGIO
 
 aws s3 cp assets/boot_eda.sh $INIT_ASSET_DIR_S3/  --region=$AWS_REGION
 aws s3 cp assets/boot_etl.sh $INIT_ASSET_DIR_S3/  --region=$AWS_REGION
-aws s3 cp assets/boot_eda_r.sh $INIT_ASSET_DIR_S3/  --region=$AWS_REGION
 aws s3 cp assets/run_jupyter.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
-aws s3 cp assets/run_rstudio.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
 aws s3 cp assets/cp_assets.sh $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
 aws s3 cp assets/NanumGothic.ttf $INIT_ASSET_DIR_S3/ --region=$AWS_REGION
