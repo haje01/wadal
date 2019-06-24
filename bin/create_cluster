@@ -1,12 +1,12 @@
-if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
-    echo 'enter profile or specify WADAL_PROF envvar'
+if [ $# -lt 1 ] && [ -z ${PROFILE} ]; then
+    echo 'enter profile or specify PROFILE envvar'
     exit 0
 fi
 
-if [ -z ${WADAL_PROF} ]; then
+if [ -z ${PROFILE} ]; then
     PROF=$1
 else
-    PROF=${WADAL_PROF}
+    PROF=${PROFILE}
 fi
 
 if [ -f "clusters/${PROF}_cluster.id" ]; then
@@ -23,12 +23,4 @@ then
     BidKeyVal=",BidPrice=$TASK_SPOT_BID_PRICE"
  fi
 
-case "$PLATFORM" in
-
-py) source bin/_create_py
-  ;;
-r) source bin/_create_r
-  ;;
-*) echo "Invalid option"
- ;;
-esac
+source bin/_create_py

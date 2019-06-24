@@ -1,14 +1,14 @@
-if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
-    echo 'enter profile or specify WADAL_PROF envvar'
+if [ $# -lt 1 ] && [ -z ${PROFILE} ]; then
+    echo 'enter profile or specify PROFILE envvar'
     exit 0
 fi
 
-if [ -z ${WADAL_PROF} ]; then
+if [ -z ${PROFILE} ]; then
     PROF=$1
     src=$2
     dst=$3
 else
-    PROF=${WADAL_PROF}
+    PROF=${PROFILE}
     src=$1
     dst=$2
 fi

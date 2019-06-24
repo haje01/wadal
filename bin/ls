@@ -1,9 +1,9 @@
-if [ $# -lt 1 ] && [ -z ${WADAL_PROF} ]; then
-    echo 'enter profile or specify WADAL_PROF envvar'
+if [ $# -lt 1 ] && [ -z ${PROFILE} ]; then
+    echo 'enter profile or specify PROFILE envvar'
     exit 0
 fi
 
-if [ -z ${WADAL_PROF} ]; then
+if [ -z ${PROFILE} ]; then
     PROF=$1
 
     if [ -z "$2" ]
@@ -20,7 +20,7 @@ if [ -z ${WADAL_PROF} ]; then
         subdir=$3
     fi
 else
-    PROF=${WADAL_PROF}
+    PROF=${PROFILE}
 
     if [ -z "$1" ]
     then

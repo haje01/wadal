@@ -126,7 +126,6 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 앞에서 준비해둔 정보로 각 변수의 값을 채워 넣는다.
 
 ```bash
-    export PLATFORM=YOUR-PLATFORM ex) py or r
     export CLUSTER_NAME="YOUR-CLUSTER-NAME"
     export AWS_REGION=YOUR-AWS-REGION
     export AWS_EMR_LABEL=EMR-LABEL ex)emr-5.0.0
@@ -163,12 +162,12 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 ## 사용
 
 앞에서 만들어둔 프로파일 이름을 아래와 같은 두 가지 방법으로 사용할 수 있다:
-1. 미리 환경 변수(`WADAL_PROF`)로 export 해두기
+1. 미리 환경 변수(`PROFILE`)로 export 해두기
 2. 매 명령의 첫 번째 인자로 건네기
 
 2 번 방식은 매 명령의 첫 인자로 프로파일 이름은 지정해야 하기에 여러 명령을 수행할 때는 1 번 방법을 추천한다. 아래와 같이 한 번 호출해두면 편리하다.
 ```
-export WADAL_PROF=myprof
+export PROFILE=myprof
 ```
 
 지금부터 다양한 명령어를 소개하겠다. 사용시 현재 디렉토리는 Wadal이 설치된 디렉토리여야 하며, 명령어는 `bin/` 디렉토리에 위치한다.
