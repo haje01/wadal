@@ -5,7 +5,7 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
 # Configure s3fs
 sudo su -l hadoop -c "mkdir ~/works"
-if [ "$1" = "NA" ]; then
+if [ "$3" = "NA" ]; then
     # using git for notebook storage
     sudo su -l hadoop -c "cd ~/works && git clone ${4/\/\//\/\/$5:$6@} > /tmp/git-clone.log 2>&1"
     WORK_DIR=$(basename $4)
