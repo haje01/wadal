@@ -121,7 +121,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 - `lab` - Jupyter Lab 형태로 사용
 - `remote` - VS Code의 Jupyter Server URI로 지정하여 사용
 
-VS Code에서 사용은 [이곳](https://code.visualstudio.com/docs/python/jupyter-support)을 참고하자.
+명시하지 않으면 기본은 `lab` 모드로 동작한다. VS Code에서 사용은 [이곳](https://code.visualstudio.com/docs/python/jupyter-support)을 참고하자.
 
 ## 프로파일 만들기
 

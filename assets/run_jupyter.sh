@@ -3,9 +3,11 @@
 # Environments
 JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
+echo $@ > /tmp/wadal_params
+
 # Configure s3fs
 sudo su -l hadoop -c "mkdir ~/works"
-if [ "$1" -ne "remote" ]; then
+if [ "$1" != "remote" ]; then
     # using git for notebook storage
     sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} > /tmp/git-clone.log 2>&1"
     WORK_DIR=$(basename $2)
