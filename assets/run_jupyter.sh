@@ -5,17 +5,15 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
 # Configure s3fs
 sudo su -l hadoop -c "mkdir ~/works"
-if [ "$3" = "NA" ]; then
+if [ "$1" -ne "remote" ]; then
     # using git for notebook storage
-    sudo su -l hadoop -c "cd ~/works && git clone ${4/\/\//\/\/$5:$6@} > /tmp/git-clone.log 2>&1"
-    WORK_DIR=$(basename $4)
-    git config --global user.email "$7"
-    git config --global user.name "$5"
+    sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} > /tmp/git-clone.log 2>&1"
+    WORK_DIR=$(basename $2)
+    git config --global user.email "$5"
+    git config --global user.name "$3"
+    JUPYTER_MODE="$1"
 else
-    # using s3 for notebook storage
-    sudo su -l hadoop -c "echo -e $1:$2 > ~/.passwd-s3fs"
-    sudo su -l hadoop -c "chmod 600 ~/.passwd-s3fs"
-    sudo su -l hadoop -c "/usr/bin/s3fs $3 /home/hadoop/works"
+    JUPYTER_MODE="notebook"
 fi
 
 # Configure Jupyter
@@ -23,7 +21,7 @@ sudo su -l hadoop -c "/usr/local/bin/jupyter notebook --generate-config"
 
 JUPYTER_NOTEBOOK_CONFIG=/home/hadoop/.jupyter/jupyter_notebook_config.py
 sudo sed -i -e '3a c.NotebookApp.iopub_data_rate_limit = 10000000' $JUPYTER_NOTEBOOK_CONFIG
-sudo sed -i -e '3a c.NotebookApp.password = "sha1:8c1b53def426:12eefe9afd49d7345bfb71c4463aa61ca644ef4a"' $JUPYTER_NOTEBOOK_CONFIG
+# sudo sed -i -e '3a c.NotebookApp.password = "sha1:8c1b53def426:12eefe9afd49d7345bfb71c4463aa61ca644ef4a"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.notebook_dir = "/home/hadoop/works/'$WORK_DIR'"' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.allow_remote_access = True' $JUPYTER_NOTEBOOK_CONFIG
 sudo sed -i -e '3a c.NotebookApp.allow_origin = "*"' $JUPYTER_NOTEBOOK_CONFIG
@@ -70,9 +68,9 @@ cat << EOF > $JUPYTER_PYSPARK_BIN
 export SPARK_HOME=/usr/lib/spark/
 export PYSPARK_PYTHON=/usr/bin/python36
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
-export PYSPARK_DRIVER_PYTHON_OPTS='lab'
+export PYSPARK_DRIVER_PYTHON_OPTS="$JUPYTER_MODE"
 set -a
-eval "$8"
+eval "$6"
 set +a
 nohup pyspark > $JUPYTER_LOG 2>&1 &
 EOF

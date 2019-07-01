@@ -12,7 +12,6 @@ sudo pip-3.6 install jupyter
 sudo pip-3.6 install jupyterlab
 sudo pip-3.6 install boto3
 sudo pip-3.6 install pycrypto
-sudo pip-3.6 install s3fs
 sudo pip-3.6 install xlrd
 sudo pip-3.6 install munch
 sudo pip-3.6 install 'tqdm>=4.29.1'
@@ -22,19 +21,6 @@ sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo chown -hR hadoop /usr/local/share/jupyter/lab
 sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
-
-# for s3fs
-sudo yum install -y gcc libstdc++-devel gcc-c++ fuse fuse-devel libxml2-devel mailcap automake openssl-devel 
-sudo wget ftp://mirror.switch.ch/pool/4/mirror/epel/6/x86_64/Packages/j/jsoncpp-devel-0.10.5-2.el6.x86_64.rpm
-wget ftp://mirror.switch.ch/pool/4/mirror/epel/6/x86_64/Packages/j/jsoncpp-0.10.5-2.el6.x86_64.rpm
-sudo rpm -ivh *.rpm
-git clone https://github.com/s3fs-fuse/s3fs-fuse
-cd s3fs-fuse/
-./autogen.sh
-./configure --prefix=/usr --with-openssl
-make
-sudo make install
-cd
 
 # rmate
 sudo wget -O /usr/local/bin/rmate \https://raw.github.com/aurora/rmate/master/rmate

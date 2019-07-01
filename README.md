@@ -90,7 +90,7 @@ Core 노드는 HDFS 스토리지를 가지는 워커노드이다. 기본은 1대
 
 Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타입, 리전, Subnet이 속한 AZ) 등)에서의 시세를 알아두자. 시세보다 약간 높은 가격으로 프로파일에 기입한다.
 
-### 부트스트랩 스크립트
+#### 부트스트랩 스크립트
 
 부트스트랩(bootstrap) 스크립트는 EMR의 부트스트랩 과정에서 수행되어, 패키지 설치나 환경 설정등의 작업을 한다. 기본으로 제공하는 아래의 두 스크립트 중 하나를 선택할 수 있고,
 
@@ -112,6 +112,16 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 ```
 
 명시하지 않으면 기본 부트스트랩 스크립트인 `assets/boot_eda.sh`를 이용하게 된다.
+
+#### Jupyter 노트북 모드 결정
+
+다음과 같은 세 가지 모드 중 하나를 선택하자
+
+- `notebook` - Jupyter Notebook 형태로 사용
+- `lab` - Jupyter Lab 형태로 사용
+- `remote` - VS Code의 Jupyter Server URI로 지정하여 사용
+
+VS Code에서 사용은 [이곳](https://code.visualstudio.com/docs/python/jupyter-support)을 참고하자.
 
 ## 프로파일 만들기
 
@@ -147,6 +157,7 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
     export EC2_KEY_PAIR_PATH="EC2-KEY-PAIR-PATH(include .pem)"
     export INIT_ASSET_DIR_S3=S3-URI-FOR-INIT-ASSET
     export EMR_LOG_DIR_S3=S3-URI-FOR-EMR-LOG
+    export JUPYTER_MODE=JUPYTER-MODE  # 주피터 노트북 모드
     # 분석 코드 git 정보
     export GIT_REPO=GIT-REPO  # https:// 로 시작하는 git 저장소 URL
     export GIT_USER=GIT-USER  # 저장소 유저명

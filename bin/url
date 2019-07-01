@@ -11,4 +11,11 @@ fi
 
 source profiles/$PROF
 
-aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",' | awk '{print$1":8192"}'
+CLUSTER=`cat "clusters/${PROF}_cluster.id"`
+
+nblist=$(ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id $CLUSTER --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "jupyter notebook list")
+token=$(echo $nblist | head -n 1 | cut -d'/' -f 4 | cut -d':' -f 1)
+
+url=$(echo http://$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",' | awk '{print$1":8192"}'))
+echo $url/$token
+
