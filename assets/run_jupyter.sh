@@ -10,7 +10,8 @@ sudo su -l hadoop -c "mkdir ~/works"
 if [ "$1" != "remote" ]; then
     # using git for notebook storage
     sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} > /tmp/git-clone.log 2>&1"
-    WORK_DIR=$(basename $2)
+    fname=$(basename $2)
+    WORK_DIR="${fname%.*}"
     git config --global user.email "$5"
     git config --global user.name "$3"
     JUPYTER_MODE="$1"

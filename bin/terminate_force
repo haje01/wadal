@@ -12,7 +12,8 @@ fi
 source profiles/$PROF
 
 if [ ! -z $GIT_REPO ]; then
-    DIR="$(basename $GIT_REPO)"
+    fname="$(basename $GIT_REPO)"
+    DIR="${fname%.*}"
     GIT_PATH="/home/hadoop/works/$DIR"
     TEST_COMMIT="cd $GIT_PATH; git status --porcelain | grep '^ M.*'"
     TEST_PUSH="cd $GIT_PATH; git cherry -v"
