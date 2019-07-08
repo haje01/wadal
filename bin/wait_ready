@@ -19,4 +19,4 @@ do
     state="$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",')"
 done
 
-sleep 40
+sleep 60
