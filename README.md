@@ -414,7 +414,7 @@ AWS 리소스의 권한이 필요 이상으로 부여된 IAM 유저 키가 해�
 
 이 작업은 AWS 대쉬보드에서 EMR 클러스터의 Master 노드의 SG에 대해 한번만 해주면 된다. 이후는 이 기본 SG가 그대로 사용된다.
 
-### Git 암호의 Encode
+### Git 암호의 Escape
 `GIT_PASS`에 들어가는 Git 암호에 `@`, `+`, `/` 등의 기호가 들어가면, 암호를 Port 번호로 착각하여 아래와 같은 에러가 발생할 수 있습니다.
 
     Illegal port number
