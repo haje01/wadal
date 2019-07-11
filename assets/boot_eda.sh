@@ -46,6 +46,7 @@ sudo pip-3.6 install jellyfish
 sudo pip-3.6 install xgboost
 sudo pip-3.6 install auto_ml
 sudo pip-3.6 install xlrd
+sudo pip-3.6 install s3fs
 sudo pip-3.6 install 'tqdm>=4.29.1'
 sudo pip-3.6 install papermill
 sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master

@@ -13,6 +13,7 @@ sudo pip-3.6 install jupyterlab
 sudo pip-3.6 install boto3
 sudo pip-3.6 install pycrypto
 sudo pip-3.6 install xlrd
+sudo pip-3.6 install s3fs
 sudo pip-3.6 install munch
 sudo pip-3.6 install 'tqdm>=4.29.1'
 sudo pip-3.6 install papermill

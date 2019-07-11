@@ -80,3 +80,6 @@ EOF
 
 chmod +x $JUPYTER_PYSPARK_BIN
 sudo su -l hadoop $JUPYTER_PYSPARK_BIN
+
+# supress log
+sudo sed -i 's/rootCategory=INFO/rootCategory=ERROR/g' /etc/spark/conf/log4j.properties
