@@ -8,8 +8,11 @@ echo $@ > /tmp/wadal_params
 # Configure s3fs
 sudo su -l hadoop -c "mkdir ~/works"
 if [ "$1" != "remote" ]; then
+    if [ -z $6 ]; then
+        git_branch="--single-branch -b $6"
+    fi
     # using git for notebook storage
-    sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} > /tmp/git-clone.log 2>&1"
+    sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} $git_branch> /tmp/git-clone.log 2>&1"
     fname=$(basename $2)
     WORK_DIR="${fname%.*}"
     git config --global user.email "$5"
@@ -73,7 +76,7 @@ export PYSPARK_PYTHON=/usr/bin/python36
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS="$JUPYTER_MODE"
 set -a
-eval "$6"
+eval "$7"
 set +a
 nohup pyspark > $JUPYTER_LOG 2>&1 &
 EOF
