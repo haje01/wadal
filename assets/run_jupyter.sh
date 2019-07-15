@@ -53,11 +53,14 @@ import sys
 sys.path.append('/home/hadoop/works/')
 
 import numpy as np
-import matplotlib.pyplot as plt
-plt.style.use('ggplot')
-import matplotlib as mlp
-mlp.rcParams['font.family'] = u'NanumGothic'
-mlp.rcParams['font.size'] = 10
+try:
+    import matplotlib.pyplot as plt
+    import matplotlib as mlp
+except ModuleNotFoundError:
+else:
+    plt.style.use('ggplot')
+    mlp.rcParams['font.family'] = u'NanumGothic'
+    mlp.rcParams['font.size'] = 10
 
 # import seaborn as sns
 # sns.set_style('darkgrid', {'font.family': [u'NanumGothic']})
