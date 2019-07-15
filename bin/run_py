@@ -24,4 +24,4 @@ echo "parameters: $parameters"
 
 set -x
 
-ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "cd works/$basedir && SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/bin/python3 $parameters $ENVS spark-submit $fname"
+ssh -o StrictHostKeyChecking=no -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') "cd works/$basedir && SPARK_HOME=/usr/lib/spark/ PYSPARK_PYTHON=/usr/bin/python3 PYSPARK_DRIVER_PYTHON=/usr/local/bin/ipython $parameters $ENVS spark-submit $fname"
