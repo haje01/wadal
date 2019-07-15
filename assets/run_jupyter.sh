@@ -57,6 +57,7 @@ try:
     import matplotlib.pyplot as plt
     import matplotlib as mlp
 except ModuleNotFoundError:
+    pass
 else:
     plt.style.use('ggplot')
     mlp.rcParams['font.family'] = u'NanumGothic'
