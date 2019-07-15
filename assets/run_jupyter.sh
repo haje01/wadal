@@ -8,7 +8,7 @@ echo $@ > /tmp/wadal_params
 # Configure s3fs
 sudo su -l hadoop -c "mkdir ~/works"
 if [ "$1" != "remote" ]; then
-    if [ -z $6 ]; then
+    if [ -n $6 ]; then
         git_branch="--single-branch -b $6"
     fi
     # using git for notebook storage
