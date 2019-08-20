@@ -5,7 +5,7 @@ JUPYTER_LOG=/home/hadoop/.jupyter/jupyter.log
 
 echo $@ > /tmp/wadal_params
 
-# Configure s3fs
+# Configure Git
 sudo su -l hadoop -c "mkdir ~/works"
 if [ "$1" != "remote" ]; then
     if [ ! -z $6 ]; then
