@@ -8,6 +8,7 @@ sudo su -l hadoop -c "nvm install 10.0"
 sudo yum -y install python36 python36-pip python36-devel
 sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
 sudo pip-3.6 install pandas
+sudo pip-3.6 install matplotlib
 sudo pip-3.6 install jupyter
 sudo pip-3.6 install jupyterlab
 sudo pip-3.6 install boto3
