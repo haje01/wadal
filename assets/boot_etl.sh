@@ -1,4 +1,7 @@
 sudo yum -y install git
+git clone https://github.com/awslabs/git-secrets.git
+cd git-secrets.git && make install
+
 # install node
 sudo yum install -y curl-devel
 sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash"
