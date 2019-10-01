@@ -1,6 +1,6 @@
 sudo yum -y install git
 git clone https://github.com/awslabs/git-secrets.git
-cd git-secrets.git 
+cd git-secrets
 sudo make install
 # install node
 sudo yum install -y curl-devel
