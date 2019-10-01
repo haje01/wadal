@@ -1,6 +1,7 @@
 sudo yum -y install git
 git clone https://github.com/awslabs/git-secrets.git
-cd git-secrets.git && make install
+cd git-secrets.git 
+sudo make install
 sudo yum -y install graphviz
 sudo yum -y install graphviz-devel
 # install node
