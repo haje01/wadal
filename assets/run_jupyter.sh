@@ -90,7 +90,7 @@ sudo su -l hadoop $JUPYTER_PYSPARK_BIN
 
 # supress log
 sudo sed -i 's/rootCategory=INFO/rootCategory=ERROR/g' /etc/spark/conf/log4j.properties
-sudo cat << EOF > /etc/spark/conf/log4j.properties
+sudo bash -c 'cat << EOF >> /etc/spark/conf/log4j.properties
 log4j.logger.org.spark_project.jetty.server.HttpChannel=ERROR
 log4j.logger.org.spark_project.jetty.servlet.ServletHandler=ERROR
-EOF
+EOF'
