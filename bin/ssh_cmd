@@ -1,0 +1,17 @@
+if [ $# -lt 1 ] && [ -z ${PROFILE} ]; then
+    echo 'enter profile or specify PROFILE envvar'
+    exit 0
+fi
+
+if [ -z ${PROFILE} ]; then
+    PROF=$1
+    CMD=$2
+else
+    PROF=${PROFILE}
+    CMD=$1
+fi
+
+source profiles/$PROF
+
+
+ssh -i $EC2_KEY_PAIR_PATH -o "StrictHostKeyChecking no" hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",')  $CMD
