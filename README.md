@@ -1,4 +1,6 @@
 # wadal
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhaje01%2Fwadal.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhaje01%2Fwadal?ref=badge_shield)
+
 
 wadal은 AWS EMR의 단속적(transient) 클러스터를 띄우고, 거기에 PySpark 환경을 설정해주는 유틸리티이다. 다음과 같은 특징이 있다.
 
@@ -425,3 +427,7 @@ AWS 리소스의 권한이 필요 이상으로 부여된 IAM 유저 키가 해�
 
 다 사용한 클러스터는 꼭 terminate 해 비용을 절감하자.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhaje01%2Fwadal.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhaje01%2Fwadal?ref=badge_large)
