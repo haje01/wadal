@@ -9,12 +9,12 @@ sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
 sudo su -l hadoop -c "nvm install 9.0"
 
 sudo yum -y install python36 python36-pip python36-devel
-sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
-sudo pip-3.6 install jupyter
-sudo pip-3.6 install jupyterlab
-sudo pip-3.6 install boto3
-sudo pip-3.6 install papermill
-sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+sudo pip3.7 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
+sudo pip3.7 install jupyter
+sudo pip3.7 install jupyterlab
+sudo pip3.7 install boto3
+sudo pip3.7 install papermill
+sudo pip3.7 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo chown -hR hadoop /usr/local/share/jupyter/lab
@@ -62,7 +62,7 @@ export PYSPARK_PYTHON=/usr/bin/python36
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
 alias python=python36
-alias pip=pip-3.6
+alias pip=pip3.7
 EOF
 
 cat tmpenv >> /home/hadoop/.bash_profile

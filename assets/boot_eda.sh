@@ -10,58 +10,58 @@ sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/
 sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
 sudo su -l hadoop -c "nvm install 10.0"
 
-# python3.6
-sudo yum -y install python36-devel
+# python3.7
 sudo yum -y install tkinter tcl-devel tk-devel
 # sudo sed -i -e '/secure_path/ s[=.*[&:/usr/local/bin[' /etc/sudoers
 
 # cmake
-wget http://www.cmake.org/files/v3.6/cmake-3.6.1.tar.gz
-tar -zxvf cmake-3.6.1.tar.gz
-cd cmake-3.6.1
+wget http://www.cmake.org/files/v3.7/cmake-3.7.1.tar.gz
+tar -zxvf cmake-3.7.1.tar.gz
+cd cmake-3.7.1
 ./bootstrap
 make
 sudo make install
 cd
 
 # for pydata
-sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
-sudo pip-3.6 install jupyter
-sudo pip-3.6 install jupyterlab
-sudo pip-3.6 install matplotlib
-sudo pip-3.6 install cython
-sudo pip-3.6 install pandas
-sudo pip-3.6 install runipy
-sudo pip-3.6 install plotly
-sudo pip-3.6 install cufflinks
-sudo pip-3.6 install seaborn
-sudo pip-3.6 install boto3
-sudo pip-3.6 install rarfile
-sudo pip-3.6 install pycrypto
-sudo pip-3.6 install bokeh
-sudo pip-3.6 install sklearn
-sudo pip-3.6 install networkx
-sudo pip-3.6 install nxviz
-sudo pip-3.6 install pygraphviz
-sudo pip-3.6 install pydotplus
-sudo pip-3.6 install munch
-sudo pip-3.6 install jellyfish
-sudo pip-3.6 install xgboost
-sudo pip-3.6 install auto_ml
-sudo pip-3.6 install xlrd
-sudo pip-3.6 install s3fs
-sudo pip-3.6 install 'tqdm>=4.29.1'
-sudo pip-3.6 install papermill
-sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+sudo pip3.7 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
+sudo pip3.7 install jupyter
+sudo pip3.7 install jupyterlab
+sudo pip3.7 install matplotlib
+sudo pip3.7 install cython
+sudo pip3.7 install pandas
+sudo pip3.7 install runipy
+sudo pip3.7 install plotly
+sudo pip3.7 install cufflinks
+sudo pip3.7 install seaborn
+sudo pip3.7 install boto3
+sudo pip3.7 install rarfile
+sudo pip3.7 install pycrypto
+sudo pip3.7 install bokeh
+sudo pip3.7 install sklearn
+sudo pip3.7 install networkx
+# sudo pip3.7 install nxviz
+sudo pip3.7 install pygraphviz
+sudo pip3.7 install pydotplus
+sudo pip3.7 install munch
+sudo pip3.7 install jellyfish
+sudo pip3.7 install xgboost
+sudo pip3.7 install auto_ml
+sudo pip3.7 install xlrd
+sudo pip3.7 install s3fs
+sudo pip3.7 install 'tqdm>=4.29.1'
+sudo pip3.7 install papermill
+sudo pip3.7 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo chown -hR hadoop /usr/local/share/jupyter/lab
 sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
-sudo pip-3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
-sudo pip-3.6 install torchvision
-sudo pip-3.6 install geoip2
-sudo pip-3.6 install tensorboardX
-sudo pip-3.6 install scikit-plot
+# sudo pip3.7 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
+sudo pip3.7 install torchvision
+sudo pip3.7 install geoip2
+sudo pip3.7 install tensorboardX
+sudo pip3.7 install scikit-plot
+
 cat << EOF > /home/hadoop/.config/matplotlib/matplotlibrc
 backend : agg
 EOF
@@ -78,7 +78,7 @@ cd
 # dateglob
 git clone https://github.com/Yelp/dateglob.git
 cd dateglob/
-sudo pip-3.6 install -e .
+sudo pip3.7 install -e .
 cd
 
 # rar
@@ -154,11 +154,11 @@ EOF
 cat << EOF > tmpenv
 
 export SPARK_HOME=/usr/lib/spark/
-export PYSPARK_PYTHON=/usr/bin/python36
+export PYSPARK_PYTHON=/usr/bin/python3.7
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
-alias python=python36
-alias pip=pip-3.6
+alias python=python3.7
+alias pip=pip3.7
 EOF
 
 cat tmpenv >> /home/hadoop/.bash_profile

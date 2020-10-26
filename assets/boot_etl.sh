@@ -9,25 +9,24 @@ sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/
 sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
 sudo su -l hadoop -c "nvm install 10.0"
 
-sudo yum -y install python36 python36-pip python36-devel
-sudo pip-3.6 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
-sudo pip-3.6 install pandas
-sudo pip-3.6 install jupyter
-sudo pip-3.6 install jupyterlab
-sudo pip-3.6 install boto3
-sudo pip-3.6 install pycrypto
-sudo pip-3.6 install xlrd
-sudo pip-3.6 install s3fs
-sudo pip-3.6 install geoip2
-sudo pip-3.6 install munch
-sudo pip-3.6 install 'tqdm>=4.29.1'
-sudo pip-3.6 install papermill
-sudo pip-3.6 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
+sudo pip3.7 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
+sudo pip3.7 install pandas
+sudo pip3.7 install jupyter
+sudo pip3.7 install jupyterlab
+sudo pip3.7 install boto3
+sudo pip3.7 install pycrypto
+sudo pip3.7 install xlrd
+sudo pip3.7 install s3fs
+sudo pip3.7 install geoip2
+sudo pip3.7 install munch
+sudo pip3.7 install 'tqdm>=4.29.1'
+sudo pip3.7 install papermill
+sudo pip3.7 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo chown -hR hadoop /usr/local/share/jupyter/lab
 sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
-sudo pip-3.6 install matplotlib
+sudo pip3.7 install matplotlib
 
 # rmate
 sudo wget -O /usr/local/bin/rmate \https://raw.github.com/aurora/rmate/master/rmate
@@ -67,11 +66,11 @@ EOF
 cat << EOF > tmpenv
 
 export SPARK_HOME=/usr/lib/spark/
-export PYSPARK_PYTHON=/usr/bin/python36
+export PYSPARK_PYTHON=/usr/bin/python3.7
 export PYSPARK_DRIVER_PYTHON=/usr/local/bin/jupyter
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib
-alias python=python36
-alias pip=pip-3.6
+alias python=python3.7
+alias pip=pip3.7
 EOF
 
 cat tmpenv >> /home/hadoop/.bash_profile

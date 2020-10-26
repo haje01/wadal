@@ -101,8 +101,8 @@ Spot Instance를 사용하는 경우 자신이 원하는 환경(인스턴스 타
 
 ```bash
     sudo yum -y install python36 python36-pip python36-devel
-    sudo pip-3.6 install jupyter
-    sudo pip-3.6 install boto3
+    sudo pip3.7 install jupyter
+    sudo pip3.7 install boto3
 
     cat << EOF > /home/hadoop/.vimrc
     syntax on
