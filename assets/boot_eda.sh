@@ -6,6 +6,7 @@ sudo yum -y install graphviz
 sudo yum -y install graphviz-devel
 # install node
 sudo yum install -y curl-devel
+sudo yum install -y python3-devel
 sudo su -l hadoop -c "curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash"
 sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
 sudo su -l hadoop -c "nvm install 10.0"
