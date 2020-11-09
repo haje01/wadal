@@ -11,24 +11,24 @@ sudo su -l hadoop -c ". ~/.nvm/nvm.sh"
 sudo su -l hadoop -c "nvm install 10.0"
 
 sudo pip3.7 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
-sudo pip3.7 install pandas
-sudo pip3.7 install jupyter
-sudo pip3.7 install jupyterlab
-sudo pip3.7 install boto3
-sudo pip3.7 install pycrypto
-sudo pip3.7 install xlrd
-sudo pip3.7 install s3fs
-sudo pip3.7 install geoip2
-sudo pip3.7 install munch
+sudo pip3.7 install pandas==1.1.4
+sudo pip3.7 install jupyter==1.0.0
+sudo pip3.7 install jupyterlab==2.2.9
+sudo pip3.7 install boto3==1.16.13
+sudo pip3.7 install pycrypto==2.6.1
+sudo pip3.7 install xlrd==1.2.0
+sudo pip3.7 install s3fs==0.5.1
+sudo pip3.7 install geoip2==4.1.0
+sudo pip3.7 install munch==2.5.0
 sudo pip3.7 install pyathena==1.11.2
 sudo pip3.7 install 'tqdm>=4.29.1'
-sudo pip3.7 install papermill
+sudo pip3.7 install papermill==2.2.2
 sudo pip3.7 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
 sudo chown -hR hadoop /usr/local/share/jupyter/lab
 sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
-sudo pip3.7 install matplotlib
+sudo pip3.7 install matplotlib==3.3.2
 
 # rmate
 sudo wget -O /usr/local/bin/rmate \https://raw.github.com/aurora/rmate/master/rmate

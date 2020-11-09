@@ -26,18 +26,18 @@ cd
 
 # for pydata
 sudo pip3.7 install tornado==5.1.1  # 6.0.0 has Jupyter kernel connection problem
-sudo pip3.7 install jupyter
-sudo pip3.7 install jupyterlab
-sudo pip3.7 install matplotlib
+sudo pip3.7 install jupyter==1.0.0
+sudo pip3.7 install jupyterlab==2.2.9
+sudo pip3.7 install matplotlib==3.3.2
 sudo pip3.7 install cython
-sudo pip3.7 install pandas
+sudo pip3.7 install pandas==1.1.4
 sudo pip3.7 install runipy
 sudo pip3.7 install plotly
 sudo pip3.7 install cufflinks
 sudo pip3.7 install seaborn
-sudo pip3.7 install boto3
+sudo pip3.7 install boto3==1.16.13
 sudo pip3.7 install rarfile
-sudo pip3.7 install pycrypto
+sudo pip3.7 install pycrypto==2.6.1
 sudo pip3.7 install bokeh
 sudo pip3.7 install sklearn
 sudo pip3.7 install networkx
@@ -45,14 +45,14 @@ sudo pip3.7 install pyathena==1.11.2
 # sudo pip3.7 install nxviz
 sudo pip3.7 install pygraphviz
 sudo pip3.7 install pydotplus
-sudo pip3.7 install munch
+sudo pip3.7 install munch==2.5.0
 sudo pip3.7 install jellyfish
 sudo pip3.7 install xgboost
 sudo pip3.7 install auto_ml
 sudo pip3.7 install xlrd
-sudo pip3.7 install s3fs
+sudo pip3.7 install s3fs==0.5.1
 sudo pip3.7 install 'tqdm>=4.29.1'
-sudo pip3.7 install papermill
+sudo pip3.7 install papermill==2.2.2
 sudo pip3.7 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master
 sudo su -l hadoop -c "/usr/local/bin/jupyter contrib nbextension install --user"
 sudo su -l hadoop -c "/usr/local/bin/jupyter nbextension enable toc2/main"
@@ -60,7 +60,7 @@ sudo chown -hR hadoop /usr/local/share/jupyter/lab
 sudo su -l hadoop -c "/usr/local/bin/jupyter labextension install @jupyterlab/toc"
 # sudo pip3.7 install http://download.pytorch.org/whl/cpu/torch-0.3.1-cp36-cp36m-linux_x86_64.whl 
 sudo pip3.7 install torchvision
-sudo pip3.7 install geoip2
+sudo pip3.7 install geoip2==4.1.0
 sudo pip3.7 install tensorboardX
 sudo pip3.7 install scikit-plot
 
