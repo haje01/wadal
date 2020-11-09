@@ -20,6 +20,7 @@ sudo pip3.7 install xlrd
 sudo pip3.7 install s3fs
 sudo pip3.7 install geoip2
 sudo pip3.7 install munch
+sudo pip3.7 install pyathena==1.11.2
 sudo pip3.7 install 'tqdm>=4.29.1'
 sudo pip3.7 install papermill
 sudo pip3.7 install https://github.com/ipython-contrib/jupyter_contrib_nbextensions/tarball/master

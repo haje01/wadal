@@ -41,6 +41,7 @@ sudo pip3.7 install pycrypto
 sudo pip3.7 install bokeh
 sudo pip3.7 install sklearn
 sudo pip3.7 install networkx
+sudo pip3.7 install pyathena==1.11.2
 # sudo pip3.7 install nxviz
 sudo pip3.7 install pygraphviz
 sudo pip3.7 install pydotplus
