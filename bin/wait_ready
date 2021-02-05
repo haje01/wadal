@@ -22,13 +22,12 @@ done
 # 프로파일에 git 정보가 있으면, git clone 완료대기
 if [ -n ${GIT_REPO+x} ];
 then
-    ssh -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') << EOF
+    ssh -T -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') << EOF
     while : 
     do
-       if [ -f ~/git_done ]; then
+       if [ -f ~/jupyter_ready ]; then
           break
        fi
-       echo "Wait until git clone done."
        sleep 5
     done
 EOF
