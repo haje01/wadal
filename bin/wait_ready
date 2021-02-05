@@ -19,4 +19,17 @@ do
     state="$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep '"State"' | head -n1 | cut -d':' -f2 | tr -d ' ",')"
 done
 
-sleep 60
+# 프로파일에 git 정보가 있으면, git clone 완료대기
+if [ -n ${GIT_REPO+x} ];
+then
+    ssh -i $EC2_KEY_PAIR_PATH hadoop@$(aws emr describe-cluster --cluster-id `cat "clusters/${PROF}_cluster.id"` --region=$AWS_REGION | grep MasterPublicDns | cut -d':' -f2 | tr -d ' ",') << EOF
+    while : 
+    do
+       if [ -f ~/git_done ]; then
+          break
+       fi
+       echo "Wait until git clone done."
+       sleep 5
+    done
+EOF
+fi

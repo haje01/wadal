@@ -12,7 +12,7 @@ if [ "$1" != "remote" ]; then
         git_branch="--single-branch -b $6"
     fi
     # using git for notebook storage
-    sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} $git_branch> /tmp/git-clone.log 2>&1"
+    sudo su -l hadoop -c "cd ~/works && git clone ${2/\/\//\/\/$3:$4@} $git_branch> /tmp/git-clone.log 2>&1 && touch ~/git_done"
     fname=$(basename $2)
     WORK_DIR="${fname%.*}"
     git config --global user.email "$5"
