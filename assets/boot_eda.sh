@@ -50,6 +50,7 @@ sudo pip3.7 install jellyfish
 sudo pip3.7 install xgboost
 sudo pip3.7 install auto_ml
 sudo pip3.7 install xlrd
+sudo pip3.7 install fsspec==0.8.7
 sudo pip3.7 install s3fs==0.5.1
 sudo pip3.7 install 'tqdm>=4.29.1'
 sudo pip3.7 install papermill==2.2.2

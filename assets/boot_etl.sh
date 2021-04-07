@@ -17,6 +17,7 @@ sudo pip3.7 install jupyterlab==2.2.9
 sudo pip3.7 install boto3==1.16.13
 sudo pip3.7 install pycrypto==2.6.1
 sudo pip3.7 install xlrd==1.2.0
+sudo pip3.7 install fsspec==0.8.7
 sudo pip3.7 install s3fs==0.5.1
 sudo pip3.7 install geoip2==4.1.0
 sudo pip3.7 install munch==2.5.0
